@@ -6,12 +6,14 @@ const server = http.createServer(app);
 
 let currentApp = app;
 
-server.listen(process.env.PORT || 3000, error => {
+const PORT = process.env.PORT || 3000
+
+server.listen(PORT, error => {
   if (error) {
     console.log(error);
   }
 
-  console.log('🚀 started');
+  console.log(`🚀 Ready on http://localhost:${PORT}`);
 });
 
 if (module.hot) {
@@ -21,7 +23,7 @@ if (module.hot) {
     console.log('🔁  HMR Reloading `./server`...');
 
     try {
-      app = require('./server').default;
+      app = require('../server').default;
       server.removeListener('request', currentApp);
       server.on('request', app);
       currentApp = app;
