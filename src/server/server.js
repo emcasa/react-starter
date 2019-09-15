@@ -1,28 +1,26 @@
-import App from '../client/App';
-import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import express from 'express';
-import { renderToString } from 'react-dom/server';
+import App from '../client/App'
+import React from 'react'
+import {StaticRouter} from 'react-router-dom'
+import express from 'express'
+import {renderToString} from 'react-dom/server'
 
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
-const server = express();
-server
-  .disable('x-powered-by')
-  .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
-  .get('/*', (req, res) => {
-    const context = {};
-    const markup = renderToString(
-      <StaticRouter context={context} location={req.url}>
-        <App />
-      </StaticRouter>
-    );
+const app = express()
+app.use(express.static(process.env.RAZZLE_PUBLIC_DIR))
+app.get('/*', (req, res) => {
+  const context = {}
+  const markup = renderToString(
+    <StaticRouter context={context} location={req.url}>
+      <App />
+    </StaticRouter>
+  )
 
-    if (context.url) {
-      res.redirect(context.url);
-    } else {
-      res.status(200).send(
-        `<!doctype html>
+  if (context.url) {
+    res.redirect(context.url)
+  } else {
+    res.status(200).send(
+      `<!doctype html>
     <html lang="">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,8 +42,8 @@ server
         <div id="root">${markup}</div>
     </body>
 </html>`
-      );
-    }
-  });
+    )
+  }
+})
 
-export default server;
+export default app

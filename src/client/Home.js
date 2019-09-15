@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from './react.svg';
-import './Home.css';
+import React from 'react'
+import logo from './react.svg'
+import './Home.css'
 
 class Home extends React.Component {
   render() {
@@ -26,8 +26,8 @@ class Home extends React.Component {
           </li>
         </ul>
       </div>
-    );
+    )
   }
 }
 
-export default Home;
+export default Home
