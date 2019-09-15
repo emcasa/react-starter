@@ -3,5 +3,5 @@ import {connectRouter} from 'connected-react-router'
 
 export default ({history}) =>
   combineReducers({
-    router: connectRouter(history)
+    router: history ? connectRouter(history) : undefined
   })
