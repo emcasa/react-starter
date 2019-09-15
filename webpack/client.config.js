@@ -13,7 +13,7 @@ module.exports = (config) =>
      */
     setEnv({
       NODE_ENV: 'development',
-      API_URL: 'localhost:4000',
+      API_URL: null,
       WS_URL: null,
       APOLLO_ENGINE_URL: null
     })
