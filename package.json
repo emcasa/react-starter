@@ -15,6 +15,11 @@
     "format": "eslint --fix ."
   },
   "dependencies": {
+    "@absinthe/socket": "^0.2.1",
+    "@absinthe/socket-apollo-link": "^0.2.1",
+    "@emcasa/ui": "^2.4.7",
+    "@emcasa/ui-dom": "^2.4.7",
+    "@fortawesome/pro-solid-svg-icons": "^5.10.2",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "apollo-link": "^1.2.13",
@@ -29,18 +34,24 @@
     "graphql-tag": "^2.10.1",
     "history": "^4.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.15",
+    "phoenix": "^1.4.10",
     "razzle": "^3.0.0",
     "react": "^16.9.0",
+    "react-apollo": "^3.1.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "styled-components": "^4.3.2",
+    "styled-system": "^5.1.2"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-constant-elements": "^7.6.0",
     "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+    "apollo-link-logger": "^1.2.3",
     "babel-eslint": "^10.0.3",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^3.2.0",
@@ -50,6 +61,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "prettier": "^1.18.2",
+    "redux-logger": "^3.0.6",
     "webpack-blocks": "^2.0.1"
   }
 }
