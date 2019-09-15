@@ -37,6 +37,8 @@ export default function createReduxStore(context, preloadedState = {}) {
   const reducer = createReducer(context)
   const middleware = createMiddleware(context)
 
+  delete preloadedState.router
+
   const store = createStore(middleware.values())(reducer, preloadedState)
 
   // Redux saga helpers
@@ -55,7 +57,6 @@ export default function createReduxStore(context, preloadedState = {}) {
       store.task.cancel()
       store.runSaga(require('./modules/saga').default)
     })
-    module.hot.accept(() => {})
   }
 
   return store
