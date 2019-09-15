@@ -12,3 +12,5 @@ hydrate(
 if (module.hot) {
   module.hot.accept()
 }
+
+console.log(require('@/config'))
