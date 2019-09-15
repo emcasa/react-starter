@@ -1,15 +1,20 @@
-import App from '@/client/App'
+import {createMemoryHistory} from 'history'
 import {StaticRouter} from 'react-router-dom'
 import {renderToString} from 'react-dom/server'
+import createStore from '@/redux/store'
+import App from '@/client/App'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 export default (req, res) => {
+  const {apolloClient} = req
+  const history = createMemoryHistory()
+  const store = createStore({history, apolloClient})
   const context = {}
 
   const markup = renderToString(
     <StaticRouter context={context} location={req.url}>
-      <App apolloClient={req.apolloClient} />
+      <App apolloClient={apolloClient} store={store} />
     </StaticRouter>
   )
 
