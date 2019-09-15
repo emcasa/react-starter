@@ -1,0 +1,26 @@
+{
+  "presets": [
+    "razzle"
+  ],
+  "plugins": [
+    "react-require",
+    "@babel/plugin-transform-react-inline-elements",
+    "@babel/plugin-transform-react-constant-elements",
+    [
+      "module-resolver",
+      {
+        "root": "./",
+        "alias": {
+          "@": "./src"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        "lodash"
+      ]
+    }
+  }
+}

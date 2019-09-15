@@ -1,5 +1,4 @@
-import App from '../client/App'
-import React from 'react'
+import App from '@/client/App'
 import {StaticRouter} from 'react-router-dom'
 import express from 'express'
 import {renderToString} from 'react-dom/server'
