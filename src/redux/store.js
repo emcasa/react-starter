@@ -2,8 +2,8 @@ import {applyMiddleware} from 'redux'
 import createSagaMiddleware, {END} from 'redux-saga'
 import {routerMiddleware} from 'connected-react-router'
 
-import createReducer from './modules/reducer'
-import createSaga from './modules/saga'
+import createReducer from './reducer'
+import createSaga from './saga'
 
 const compose = (...args) => {
   let compose
@@ -50,12 +50,12 @@ export default function createReduxStore(context, preloadedState = {}) {
 
   // Hot module replacement
   if (module.hot) {
-    module.hot.accept('./modules/reducer', () =>
-      store.replaceReducer(require('./modules/reducer').default)
+    module.hot.accept('./reducer', () =>
+      store.replaceReducer(require('./reducer').default)
     )
-    module.hot.accept('./modules/saga', () => {
+    module.hot.accept('./saga', () => {
       store.task.cancel()
-      store.runSaga(require('./modules/saga').default)
+      store.runSaga(require('./saga').default)
     })
   }
 

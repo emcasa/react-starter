@@ -1,10 +1,10 @@
 import {createHttpLink} from 'apollo-link-http'
 import fetch from 'isomorphic-unfetch'
-import {API_URL} from '@/config'
+import {APOLLO_ENGINE_URL} from '@/config'
 
 export default () =>
   createHttpLink({
     fetch,
-    uri: API_URL,
+    uri: APOLLO_ENGINE_URL,
     credentials: 'same-origin'
   })

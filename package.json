@@ -17,6 +17,7 @@
   "dependencies": {
     "@absinthe/socket": "^0.2.1",
     "@absinthe/socket-apollo-link": "^0.2.1",
+    "@apollo/react-ssr": "^3.1.1",
     "@emcasa/ui": "^2.4.7",
     "@emcasa/ui-dom": "^2.4.7",
     "@fortawesome/pro-solid-svg-icons": "^5.10.2",
@@ -34,6 +35,7 @@
     "graphql-tag": "^2.10.1",
     "history": "^4.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
     "phoenix": "^1.4.10",
     "razzle": "^3.0.0",
@@ -43,6 +45,7 @@
     "react-helmet": "^5.2.1",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
+    "recompose": "^0.30.0",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
     "reselect": "^4.0.0",

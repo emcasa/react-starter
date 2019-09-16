@@ -1,7 +1,5 @@
-import {NavLink} from 'react-router-dom'
 import Row from '@emcasa/ui-dom/components/Row'
-import Col from '@emcasa/ui-dom/components/Col'
-import Button from '@emcasa/ui-dom/components/Button'
+import Nav from './Nav'
 
 export default function Header() {
   return (
@@ -10,20 +8,12 @@ export default function Header() {
       width="100%"
       bg="pink"
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-end"
+      py={2}
+      px={4}
+      style={{boxSizing: 'border-box'}}
     >
-      <Col as="nav" flex={1} my={2} mx={4}>
-        <NavLink to="/">
-          <Button link color="white">
-            Home
-          </Button>
-        </NavLink>
-        <NavLink to="/login">
-          <Button link color="white">
-            Login
-          </Button>
-        </NavLink>
-      </Col>
+      <Nav />
     </Row>
   )
 }
