@@ -1,0 +1,45 @@
+{
+  "presets": [
+    "razzle"
+  ],
+  "plugins": [
+    "react-require",
+    "@babel/plugin-transform-react-inline-elements",
+    "@babel/plugin-transform-react-constant-elements",
+    [
+      "module-resolver",
+      {
+        "root": "./",
+        "alias": {
+          "@": "./src"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        [
+          "styled-components",
+          {
+            "ssr": true,
+            "displayName": true,
+            "fileName": true
+          }
+        ]
+      ]
+    },
+    "production": {
+      "plugins": [
+        "lodash",
+        [
+          "styled-components",
+          {
+            "ssr": true,
+            "minify": true
+          }
+        ]
+      ]
+    }
+  }
+}
