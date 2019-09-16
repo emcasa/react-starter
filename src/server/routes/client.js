@@ -4,7 +4,7 @@ import createStore from '@/redux/store'
 import Context from '@/pages/context'
 import Routes from '@/pages/routes'
 
-export default function clientRoute(req, res, next) {
+export default async function clientRoute(req, res, next) {
   const context = {}
   const {apolloClient} = req
   const store = createStore({apolloClient})
@@ -16,7 +16,7 @@ export default function clientRoute(req, res, next) {
     </StaticRouter>
   )
   try {
-    const html = renderDocument(element, store)
+    const html = await renderDocument(element, store, apolloClient)
     if (context.url) return res.redirect(context.url)
     res.status(200).send(html)
   } catch (error) {

@@ -9,8 +9,8 @@ import Routes from '@/pages/routes'
 
 const root = document.getElementById('root')
 const history = createBrowserHistory({})
-let apolloClient = initApollo({getToken})
-let store = createStore({apolloClient, history}, window.__initialState)
+let apolloClient = initApollo({getToken}, window.__initialState.apollo)
+let store = createStore({apolloClient, history}, window.__initialState.redux)
 
 const App = () => (
   <Context store={store} apolloClient={apolloClient}>

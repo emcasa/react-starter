@@ -1,17 +1,30 @@
 import ReactDOM from 'react-dom/server'
+import {renderToStringWithData} from '@apollo/react-ssr'
 import {ServerStyleSheet} from 'styled-components'
 import Document from './index'
 
-export default function renderDocument(element, store) {
+/**
+ * Renders a react element to string
+ * @param element      React element to render
+ * @param store        Redux store
+ * @param apolloClient Apollo client
+ */
+export default async function renderDocument(element, store, apolloClient) {
   let markup
   const styleSheet = new ServerStyleSheet()
   try {
-    markup = ReactDOM.renderToString(styleSheet.collectStyles(element))
+    markup = await renderToStringWithData(styleSheet.collectStyles(element))
   } finally {
     styleSheet.seal()
   }
   const html = ReactDOM.renderToStaticMarkup(
-    <Document state={store.getState()} styles={styleSheet.getStyleElement()}>
+    <Document
+      state={{
+        redux: store.getState(),
+        apollo: apolloClient.extract()
+      }}
+      styles={styleSheet.getStyleElement()}
+    >
       {markup}
     </Document>
   )

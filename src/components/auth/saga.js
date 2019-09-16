@@ -6,7 +6,6 @@ import {
   getContext
 } from 'redux-saga/effects'
 import ACCOUNT_KIT_SIGN_IN from '@/graphql/mutations/accountKitSignIn'
-import GET_USER_PROFILE from '@/graphql/queries/userProfile'
 import * as AccountKit from './lib/accountKit'
 import * as JWT from './lib/jwt'
 import * as actions from './actions'
@@ -18,19 +17,19 @@ function* handleLogin(accessToken) {
   } = yield call([client, client.mutate], {
     mutation: ACCOUNT_KIT_SIGN_IN,
     variables: {accessToken},
-    refetchQueries: [{query: GET_USER_PROFILE}],
     errorPolicy: 'ignore'
   })
-  if (data && data.jwt) JWT.persist(data.jwt)
+  if (data && data.jwt) {
+    JWT.persist(data.jwt)
+    client.resetStore()
+  }
 }
 
 function* logout() {
   JWT.reset()
+  console.log(JWT.getToken())
   const client = yield getContext('apolloClient')
-  yield call([client, client.query], {
-    query: GET_USER_PROFILE,
-    fetchPolicy: 'network-first'
-  })
+  client.resetStore()
 }
 
 function* emailLogin({email}) {

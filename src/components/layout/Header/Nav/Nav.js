@@ -1,11 +1,11 @@
 import {NavLink} from 'react-router-dom'
-import Col from '@emcasa/ui-dom/components/Col'
+import Row from '@emcasa/ui-dom/components/Row'
 import Button from '@emcasa/ui-dom/components/Button'
 import UserMenu from '@/components/auth/UserMenu'
 
 export default function Nav({user}) {
   return (
-    <Col as="nav">
+    <Row as="nav" alignItems="center">
       <NavLink to="/">
         <Button link color="white">
           Home
@@ -20,6 +20,6 @@ export default function Nav({user}) {
           </Button>
         </NavLink>
       )}
-    </Col>
+    </Row>
   )
 }
