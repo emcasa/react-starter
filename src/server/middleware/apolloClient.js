@@ -1,5 +1,5 @@
 import initApollo from '@/graphql/client'
-import {getToken} from '@/components/auth/lib/jwt'
+import {getToken} from '@/lib/jwt'
 
 /**
  * Initializes apollo client with jtw from cookies.

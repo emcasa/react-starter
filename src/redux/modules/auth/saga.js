@@ -6,8 +6,8 @@ import {
   getContext
 } from 'redux-saga/effects'
 import ACCOUNT_KIT_SIGN_IN from '@/graphql/mutations/accountKitSignIn'
-import * as AccountKit from './lib/accountKit'
-import * as JWT from './lib/jwt'
+import * as AccountKit from '@/lib/accountKit'
+import * as JWT from '@/lib/jwt'
 import * as actions from './actions'
 
 function* handleLogin(accessToken) {

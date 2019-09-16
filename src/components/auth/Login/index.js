@@ -1,8 +1,12 @@
 import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 import lifecycle from 'recompose/lifecycle'
+import {
+  initAccountKit,
+  emailLogin,
+  smsLogin
+} from '@/redux/modules/auth/actions'
 import Login from './Login'
-import {initAccountKit, emailLogin, smsLogin} from '../actions'
 
 export default compose(
   connect(

@@ -1,7 +1,7 @@
 import {all, fork} from 'redux-saga/effects'
-import componentsSaga from '@/components/saga'
+import authSaga from './auth/saga'
 
 export default () =>
   function* root() {
-    return yield all([fork(componentsSaga)])
+    return yield all([fork(authSaga)])
   }
