@@ -1,5 +1,11 @@
-import View from '@emcasa/ui-dom/components/View'
+import Col from '@emcasa/ui-dom/components/Col'
+import GlobalStyle from './GlobalStyle'
 
 export default function Shell({children}) {
-  return <View height="100%">{children}</View>
+  return (
+    <Col height="100%">
+      <GlobalStyle />
+      {children}
+    </Col>
+  )
 }

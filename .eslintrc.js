@@ -41,7 +41,8 @@ module.exports = {
     'object-curly-spacing': ['error', 'never'],
     quotes: ['error', 'single'],
     'react/jsx-uses-vars': 1,
-    semi: ['error', 'never']
+    semi: ['error', 'never'],
+    'no-unused-vars': ['error', {argsIgnorePattern: '^_'}]
   },
   globals: {
     process: true
