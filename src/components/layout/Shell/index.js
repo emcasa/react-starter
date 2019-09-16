@@ -3,7 +3,7 @@ import GlobalStyle from './GlobalStyle'
 
 export default function Shell({children}) {
   return (
-    <Col height="100%">
+    <Col style={{display: 'flex', flexDirection: 'column'}} height="100%">
       <GlobalStyle />
       {children}
     </Col>

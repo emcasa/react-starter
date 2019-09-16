@@ -8,7 +8,7 @@ import createSaga from './modules/saga'
 const compose = (...args) => {
   let compose
   if (
-    process.env.NODE_MODULES == 'development' &&
+    process.env.NODE_ENV == 'development' &&
     process.browser &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   )
@@ -25,7 +25,7 @@ function createMiddleware(context) {
   middleware.set('saga', createSagaMiddleware({context}))
   if (context.history)
     middleware.set('router', routerMiddleware(context.history))
-  if (process.env.NODE_MODULES == 'development' && process.browser) {
+  if (process.env.NODE_ENV == 'development' && process.browser) {
     const {createLogger} = require('redux-logger')
     middleware.set('logger', createLogger({collapsed: true}))
   }
