@@ -1,3 +1,5 @@
+export const SSR = process.env.SSR !== 'false'
+
 export const API_URL = process.env.API_URL || 'http://localhost:4000'
 
 export const WS_URL = WS_URL || `${API_URL.replace(/^http/, 'ws')}/socket`

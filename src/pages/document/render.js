@@ -10,21 +10,23 @@ import Document from './index'
  * @param apolloClient Apollo client
  */
 export default async function renderDocument(element, store, apolloClient) {
-  let markup
-  const styleSheet = new ServerStyleSheet()
-  try {
-    markup = await renderToStringWithData(styleSheet.collectStyles(element))
-  } finally {
-    styleSheet.seal()
-  }
-  const html = ReactDOM.renderToStaticMarkup(
-    <Document
-      state={{
+  let state = {}
+  let styles, markup
+  if (element) {
+    const styleSheet = new ServerStyleSheet()
+    try {
+      markup = await renderToStringWithData(styleSheet.collectStyles(element))
+      styles = styleSheet.getStyleElement()
+      state = {
         redux: store.getState(),
         apollo: apolloClient.extract()
-      }}
-      styles={styleSheet.getStyleElement()}
-    >
+      }
+    } finally {
+      styleSheet.seal()
+    }
+  }
+  const html = ReactDOM.renderToStaticMarkup(
+    <Document state={state} styles={styles}>
       {markup}
     </Document>
   )
