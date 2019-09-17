@@ -10,12 +10,18 @@ module.exports = {
     /** Change paths to entry scripts */
     target('node', (config) => ({
       ...config,
-      entry: path.join(__dirname, 'src/server/index.js')
+      entry: []
+        .concat(config.entry)
+        .slice(0, -1)
+        .concat(path.join(__dirname, 'src/server/index.js'))
     })),
     target('web', (config) => ({
       ...config,
       entry: {
-        client: path.join(__dirname, 'src/client/index.js')
+        client: []
+          .concat(config.entry.client)
+          .slice(0, -1)
+          .concat(path.join(__dirname, 'src/client/index.js'))
       }
     })),
     /** Bundle configs */
