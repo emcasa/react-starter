@@ -6,8 +6,9 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Text from '@emcasa/ui-dom/components/Text'
 
 export default class ErrorPage extends PureComponent {
-  UNSAFE_componentWillMount() {
-    const {statusCode, staticContext} = this.props
+  constructor(props) {
+    super(props)
+    const {statusCode, staticContext} = props
     if (staticContext) staticContext.statusCode = statusCode
   }
 
