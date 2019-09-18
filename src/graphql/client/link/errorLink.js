@@ -7,7 +7,7 @@ const logErrors = (data) =>
   })
 
 const isUnauthorized = ({graphQLErrors}) =>
-  graphQLErrors.find(({code}) => code == 401)
+  graphQLErrors && graphQLErrors.find(({code}) => code == 401)
 
 export default () =>
   onError((data) => {
