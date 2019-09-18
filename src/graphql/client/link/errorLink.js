@@ -13,6 +13,6 @@ export default () =>
   onError((data) => {
     if (isUnauthorized(data)) {
       // Ignore 401 errors
-      data.response.errors = null
+      if (data.response) data.response.errors = null
     } else logErrors(data)
   })
