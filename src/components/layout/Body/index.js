@@ -1,6 +1,6 @@
 import Row from '@emcasa/ui-dom/components/Row'
 
-export default function Body(props) {
+export default function Body({children}) {
   return (
     <Row
       as="main"
@@ -8,7 +8,8 @@ export default function Body(props) {
       flex={1}
       p={2}
       style={{boxSizing: 'border-box'}}
-      {...props}
-    />
+    >
+      {children}
+    </Row>
   )
 }
