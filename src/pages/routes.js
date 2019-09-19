@@ -1,3 +1,4 @@
+import React, {Fragment} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import PrivateRoute from '@/components/auth/PrivateRoute'
 import ErrorPage from './error'
@@ -19,14 +20,21 @@ const Error = (props) => {
   )
 }
 
+const ErrorRoutes = () => (
+  <Fragment>
+    <Route exact path="/error" component={Error} />
+    <Route component={NotFound} />
+  </Fragment>
+)
+
 export default function Router() {
   return (
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/login" component={LoginPage} />
       <PrivateRoute authorize={Boolean} path="/private" component={HomePage} />
-      <Route exact path="/error" component={Error} />
-      <Route component={NotFound} />
+      {/* Errors */}
+      <ErrorRoutes />
     </Switch>
   )
 }
