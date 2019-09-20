@@ -19,6 +19,7 @@ const App = () => (
     </ConnectedRouter>
   </Context>
 )
+
 ReactDOM.hydrate(<App />, root)
 
 if (module.hot) {
