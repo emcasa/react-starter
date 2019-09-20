@@ -25,8 +25,6 @@ ENV API_URL=$BUILD_API_URL
 ARG BUILD_NODE_ENV
 ENV NODE_ENV=$BUILD_NODE_ENV
 
-ENV PUBLIC_DIR =  '/opt/emcasa/frontend/public'
-
 # app set workdir
 
 WORKDIR /opt/emcasa/frontend
