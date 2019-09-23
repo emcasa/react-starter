@@ -2,53 +2,42 @@
 
 exports[`Storyshots auth/Login Login 1`] = `
 <div
-  className="sc-bdVaJa eRfVYJ"
+  className="sc-bdVaJa jVMktn"
   height="100%"
-  style={
-    Object {
-      "display": "flex",
-      "flexDirection": "column",
-    }
-  }
+  width="100%"
 >
   <div
-    className="sc-bwzfXH fywJtj"
-    height="100%"
-    width="100%"
+    className="sc-bdVaJa bUqnKa"
   >
-    <div
-      className="sc-bwzfXH budnlT"
+    <p
+      className="sc-htpNat MtFRC"
+      color="dark"
+      fontSize="large"
     >
-      <p
-        className="sc-bxivhb jePltJ"
-        color="dark"
-        fontSize="large"
-      >
-        Login with AccountKit
-      </p>
-    </div>
-    <div
-      className="sc-bwzfXH bMFILz"
+      Login with AccountKit
+    </p>
+  </div>
+  <div
+    className="sc-bdVaJa JiNTR"
+  >
+    <button
+      className="sc-bwzfXH hZxYyJ"
+      fontSize="default"
+      height="medium"
     >
-      <button
-        className="sc-htpNat kdlsFY"
-        fontSize="default"
-        height="medium"
-      >
-        Login via Email
-      </button>
-    </div>
-    <div
-      className="sc-bwzfXH bMFILz"
+      Login via Email
+    </button>
+  </div>
+  <div
+    className="sc-bdVaJa JiNTR"
+  >
+    <button
+      className="sc-bwzfXH hZxYyJ"
+      fontSize="default"
+      height="medium"
     >
-      <button
-        className="sc-htpNat kdlsFY"
-        fontSize="default"
-        height="medium"
-      >
-        Login via SMS
-      </button>
-    </div>
+      Login via SMS
+    </button>
   </div>
 </div>
 `;

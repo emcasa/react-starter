@@ -13,6 +13,7 @@
     "build:docker": "NODE_ENV=production razzle build && docker build .",
     "build:storybook": "build-storybook",
     "test": "razzle test --env=jsdom",
+    "test:storyshots": "storyshots",
     "lint": "eslint .",
     "format": "eslint --fix .",
     "storybook": "start-storybook -p 6006"
