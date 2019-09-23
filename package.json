@@ -8,13 +8,14 @@
   },
   "scripts": {
     "start": "razzle start",
-    "build": "razzle build",
-    "test": "razzle test --env=jsdom ",
     "start:prod": "NODE_ENV=production node build/server.js",
+    "build": "razzle build",
+    "build:docker": "NODE_ENV=production razzle build && docker build .",
+    "build:storybook": "build-storybook",
+    "test": "razzle test --env=jsdom",
     "lint": "eslint .",
     "format": "eslint --fix .",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006"
   },
   "jest": {
     "transform": {
@@ -70,7 +71,7 @@
     "react-router-dom": "^5.0.1",
     "recompose": "^0.30.0",
     "redux": "^4.0.4",
-    "redux-saga": "^1.0.5",
+    "redux-saga": "1.1.1",
     "reselect": "^4.0.0",
     "styled-components": "^4.3.2",
     "styled-system": "^5.1.2"
@@ -106,7 +107,6 @@
     "react-test-renderer": "^16.9.0",
     "redux-logger": "^3.0.6",
     "redux-saga-test-factory": "^0.1.1",
-    "redux-saga-testing": "^1.0.5",
     "require-context.macro": "^1.2.1",
     "webpack-blocks": "^2.0.1"
   }
