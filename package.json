@@ -8,12 +8,15 @@
   },
   "scripts": {
     "start": "razzle start",
+    "start:prod": "NODE_ENV=production node build/server.js",
     "build": "razzle build",
     "build:docker": "NODE_ENV=production razzle build && docker build .",
+    "build:storybook": "build-storybook",
     "test": "razzle test --env=jsdom",
-    "start:prod": "NODE_ENV=production node build/server.js",
+    "test:storyshots": "storyshots",
     "lint": "eslint .",
-    "format": "eslint --fix ."
+    "format": "eslint --fix .",
+    "storybook": "start-storybook -p 6006"
   },
   "jest": {
     "transform": {
@@ -75,26 +78,37 @@
     "styled-system": "^5.1.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
     "@babel/plugin-transform-react-constant-elements": "^7.6.0",
     "@babel/plugin-transform-react-inline-elements": "^7.2.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
+    "@storybook/addon-actions": "^5.2.1",
+    "@storybook/addon-links": "^5.2.1",
+    "@storybook/addon-storyshots": "^5.2.1",
+    "@storybook/addons": "^5.2.1",
+    "@storybook/react": "^5.2.1",
     "apollo-link-logger": "^1.2.3",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
     "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-macros": "^2.6.1",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-react-require": "^3.1.1",
     "babel-plugin-styled-components": "^1.10.6",
     "chai": "^4.2.0",
     "chai-things": "^0.2.0",
+    "enzyme": "^3.10.0",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "jsdom": "^15.1.1",
     "prettier": "^1.18.2",
+    "react-test-renderer": "^16.9.0",
     "redux-logger": "^3.0.6",
     "redux-saga-test-factory": "^0.1.1",
+    "require-context.macro": "^1.2.1",
     "webpack-blocks": "^2.0.1"
   }
 }
