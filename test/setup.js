@@ -12,6 +12,5 @@ global.navigator = {userAgent: 'node.js'}
 chai.use(chaiThings)
 
 global.should = chai.should()
-global.expect = chai.expect
 
 Helmet.canUseDom = false

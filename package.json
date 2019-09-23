@@ -9,10 +9,31 @@
   "scripts": {
     "start": "razzle start",
     "build": "razzle build",
-    "test": "NODE_ENV=test mocha --recursive -r @babel/register test ",
+    "test": "razzle test --env=jsdom ",
     "start:prod": "NODE_ENV=production node build/server.js",
     "lint": "eslint .",
     "format": "eslint --fix ."
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/razzle/config/jest/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/node_modules/razzle/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/node_modules/razzle/config/jest/fileTransform.js"
+    },
+    "setupFiles": [
+      "<rootDir>/test/setup.js"
+    ],
+    "testMatch": [
+      "<rootDir>/test/**/?(*.)(spec|test).js"
+    ],
+    "moduleFileExtensions": [
+      "jsx",
+      "js",
+      "json"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ]
   },
   "dependencies": {
     "@absinthe/socket": "^0.2.1",
@@ -70,7 +91,6 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "jsdom": "^15.1.1",
-    "mocha": "^6.2.0",
     "prettier": "^1.18.2",
     "redux-logger": "^3.0.6",
     "redux-saga-test-factory": "^0.1.1",

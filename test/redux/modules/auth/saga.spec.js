@@ -10,7 +10,10 @@ describe('@redux/modules/auth/saga', () => {
     query: () => null,
     mutate: () => null
   }
-  const sagaTest = sagaTestFactory({context: {apolloClient}})
+  const sagaTest = sagaTestFactory(
+    {context: {apolloClient}},
+    {it: it, before: beforeAll}
+  )
 
   describe('smsLogin({countryCode, phone})', () => {
     const countryCode = '+55'
