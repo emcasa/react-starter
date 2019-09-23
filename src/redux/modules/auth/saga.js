@@ -10,7 +10,7 @@ import * as AccountKit from '@/lib/accountKit'
 import * as JWT from '@/lib/jwt'
 import * as actions from './actions'
 
-function* handleLogin(accessToken) {
+export function* handleLogin(accessToken) {
   const client = yield getContext('apolloClient')
   const {
     data: {accountKitSignIn: data}
@@ -20,26 +20,25 @@ function* handleLogin(accessToken) {
     errorPolicy: 'ignore'
   })
   if (data && data.jwt) {
-    JWT.persist(data.jwt)
-    client.resetStore()
+    yield call(JWT.persist, data.jwt)
+    yield call([client, client.resetStore])
   }
 }
 
-function* logout() {
-  JWT.reset()
-  console.log(JWT.getToken())
+export function* logout() {
   const client = yield getContext('apolloClient')
-  client.resetStore()
+  yield call(JWT.reset)
+  yield call([client, client.resetStore])
 }
 
-function* emailLogin({email}) {
+export function* emailLogin({email}) {
   const accessToken = yield call(AccountKit.login, 'EMAIL', {
     emailAddress: email
   })
   if (accessToken) yield call(handleLogin, accessToken)
 }
 
-function* smsLogin({countryCode, phone}) {
+export function* smsLogin({countryCode, phone}) {
   const accessToken = yield call(AccountKit.login, 'PHONE', {
     countryCode,
     phoneNumber: phone
