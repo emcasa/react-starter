@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots auth/Login Login 1`] = `
+<div
+  className="sc-bdVaJa eRfVYJ"
+  height="100%"
+  style={
+    Object {
+      "display": "flex",
+      "flexDirection": "column",
+    }
+  }
+>
+  <div
+    className="sc-bwzfXH fywJtj"
+    height="100%"
+    width="100%"
+  >
+    <div
+      className="sc-bwzfXH budnlT"
+    >
+      <p
+        className="sc-bxivhb jePltJ"
+        color="dark"
+        fontSize="large"
+      >
+        Login with AccountKit
+      </p>
+    </div>
+    <div
+      className="sc-bwzfXH bMFILz"
+    >
+      <button
+        className="sc-htpNat kdlsFY"
+        fontSize="default"
+        height="medium"
+      >
+        Login via Email
+      </button>
+    </div>
+    <div
+      className="sc-bwzfXH bMFILz"
+    >
+      <button
+        className="sc-htpNat kdlsFY"
+        fontSize="default"
+        height="medium"
+      >
+        Login via SMS
+      </button>
+    </div>
+  </div>
+</div>
+`;

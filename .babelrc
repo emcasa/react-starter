@@ -3,6 +3,7 @@
     "razzle"
   ],
   "plugins": [
+    "macros",
     "react-require",
     "@babel/plugin-transform-react-inline-elements",
     "@babel/plugin-transform-react-constant-elements",
