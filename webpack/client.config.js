@@ -17,6 +17,7 @@ module.exports = (config) =>
       WS_URL: null,
       APOLLO_ENGINE_URL: null,
       FACEBOOK_APP_ID: null,
-      ACCOUNT_KIT_APP_SECRET: null
+      ACCOUNT_KIT_APP_SECRET: null,
+      SSR: false
     })
   ])
