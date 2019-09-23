@@ -9,7 +9,7 @@
   "scripts": {
     "start": "razzle start",
     "build": "razzle build",
-    "test": "razzle test --env=jsdom",
+    "test": "NODE_ENV=test mocha --recursive -r @babel/register __test__ ",
     "start:prod": "NODE_ENV=production node build/server.js",
     "lint": "eslint .",
     "format": "eslint --fix ."
@@ -55,18 +55,26 @@
   "devDependencies": {
     "@babel/plugin-transform-react-constant-elements": "^7.6.0",
     "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/register": "^7.6.0",
     "apollo-link-logger": "^1.2.3",
     "babel-eslint": "^10.0.3",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-react-require": "^3.1.1",
     "babel-plugin-styled-components": "^1.10.6",
+    "chai": "^4.2.0",
+    "chai-things": "^0.2.0",
     "eslint": "^6.4.0",
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
+    "jsdom": "^15.1.1",
+    "mocha": "^6.2.0",
     "prettier": "^1.18.2",
     "redux-logger": "^3.0.6",
+    "redux-saga-test-factory": "^0.1.1",
+    "redux-saga-testing": "^1.0.5",
     "webpack-blocks": "^2.0.1"
   }
 }
