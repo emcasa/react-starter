@@ -1,16 +1,13 @@
 import path from 'path'
 import initStoryshots, {
-  multiSnapshotWithOptions
+  multiSnapshotWithOptions,
+  Stories2SnapsConverter
 } from '@storybook/addon-storyshots'
-
-class Stories2SnapsConverter {
-  getSnapshotFileName(context) {
-    const {kind} = context
-    return path.resolve('test/components/__snapshots__', kind) + '.snap'
-  }
-}
 
 initStoryshots({
   test: multiSnapshotWithOptions(),
-  stories2snapsConverter: new Stories2SnapsConverter()
+  stories2snapsConverter: new Stories2SnapsConverter({
+    snapshotsDirName: './__snapshots__',
+    snapshotExtension: '.snap'
+  })
 })
