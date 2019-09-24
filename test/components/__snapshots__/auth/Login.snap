@@ -24,6 +24,7 @@ exports[`Storyshots auth/Login Login 1`] = `
       className="sc-bwzfXH hZxYyJ"
       fontSize="default"
       height="medium"
+      onClick={[Function]}
     >
       Login via Email
     </button>
@@ -35,6 +36,7 @@ exports[`Storyshots auth/Login Login 1`] = `
       className="sc-bwzfXH hZxYyJ"
       fontSize="default"
       height="medium"
+      onClick={[Function]}
     >
       Login via SMS
     </button>
