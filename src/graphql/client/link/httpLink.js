@@ -1,5 +1,5 @@
 import {createHttpLink} from 'apollo-link-http'
-import fetch from 'isomorphic-unfetch'
+import fetch from 'cross-fetch'
 import {APOLLO_ENGINE_URL} from '@/config'
 
 export default () =>
