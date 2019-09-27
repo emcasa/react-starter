@@ -6,9 +6,9 @@ const pickBy = require('lodash/pickBy')
  * @param {Function} filter
  */
 module.exports = (filter) => ({webpack}) => (config) => ({
+  ...config,
   plugins: config.plugins.map((plugin) => {
     if (plugin.constructor.name !== 'DefinePlugin') return plugin
     return new webpack.DefinePlugin(pickBy(plugin.definitions, filter))
-  }),
-  ...config
+  })
 })
