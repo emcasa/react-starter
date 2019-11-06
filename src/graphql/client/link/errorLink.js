@@ -1,4 +1,6 @@
 import {onError} from 'apollo-link-error'
+import {setHttpStatus} from '@/graphql/resolvers/Mutation'
+import {StatusCodes} from '@/lib/httpStatus'
 
 const logErrors = (data) =>
   console.error('GraphQLError:', {
@@ -6,13 +8,24 @@ const logErrors = (data) =>
     networkError: data.networkError
   })
 
-const isUnauthorized = ({graphQLErrors}) =>
-  graphQLErrors && graphQLErrors.find(({code}) => code == 401)
+const enhanceGraphQLError = (context) => (error) => ({
+  ...error,
+  /**
+   * Update httpStatus state to this error's response
+   */
+  emit: () => {
+    const code = error.code || 500
+    const message = StatusCodes[code] || error.message
+    setHttpStatus({}, {code, message}, context)
+  }
+})
 
 export default () =>
   onError((data) => {
-    if (isUnauthorized(data)) {
-      // Ignore 401 errors
-      if (data.response) data.response.errors = null
-    } else logErrors(data)
+    const context = data.operation.getContext()
+    if (process.browser) logErrors(data)
+    if (data.response && data.response.errors)
+      data.response.errors = data.response.errors.map(
+        enhanceGraphQLError(context)
+      )
   })
