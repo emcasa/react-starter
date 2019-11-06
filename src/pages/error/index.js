@@ -1,31 +1,26 @@
-import {PureComponent} from 'react'
-import Shell from '@/components/layout/Shell'
-import Header from '@/components/layout/Header'
-import Body from '@/components/layout/Body'
-import Row from '@emcasa/ui-dom/components/Row'
-import Text from '@emcasa/ui-dom/components/Text'
+import {graphql} from 'react-apollo'
+import {compose, lifecycle} from 'recompose'
+import SET_HTTP_STATUS from '@/graphql/mutations/setHttpStatus'
+import ErrorPage from './ErrorPage'
 
-export default class ErrorPage extends PureComponent {
-  constructor(props) {
-    super(props)
-    const {statusCode, staticContext} = props
-    if (staticContext) staticContext.statusCode = statusCode
-  }
-
-  render() {
-    const {statusCode, message} = this.props
-    return (
-      <Shell>
-        <Header />
-        <Body>
-          <Row flexDirection="column" margin="auto">
-            <Text fontSize="xlarge" color="pink" inline>
-              {statusCode}
-            </Text>
-            <Text inline>{message}</Text>
-          </Row>
-        </Body>
-      </Shell>
-    )
-  }
+/**
+ * Forcibly set GraphQL's httpStatus to this page's response
+ * to return the correct status code in the server when rendering
+ * `ErrorPage` outside of an `ErrorBoundary`.
+ */
+function emitError() {
+  if (this.props.emit) this.props.emitHttpStatus()
 }
+
+export default compose(
+  graphql(SET_HTTP_STATUS, {
+    props: ({mutate, ownProps}) => ({
+      emitHttpStatus: () =>
+        mutate({variables: {code: ownProps.code, message: ownProps.message}})
+    })
+  }),
+  lifecycle({
+    UNSAFE_componentWillMount: !process.browser ? emitError : undefined,
+    componentDidMount: emitError
+  })
+)(ErrorPage)
