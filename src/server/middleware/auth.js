@@ -16,11 +16,13 @@ export default (
   handleUnauthorizedFn = handleUnauthorized
 ) =>
   async function authMiddleware(req, res, next) {
-    // eslint-disable-next-line require-atomic-updates
-    req.user = await req.apolloClient
-      .query({query: GET_PROFILE})
-      .then(({data}) => data.userProfile)
-      .catch(() => undefined)
-    if (authorizeFn(req.user || {})) next()
+    if (!req.user) {
+      // eslint-disable-next-line require-atomic-updates
+      req.user = await req.apolloClient
+        .query({query: GET_PROFILE})
+        .then(({data}) => data.userProfile)
+        .catch(() => ({}))
+    }
+    if (authorizeFn(req.user)) next()
     else handleUnauthorizedFn(req, res, next)
   }
