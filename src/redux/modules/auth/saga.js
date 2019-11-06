@@ -46,7 +46,7 @@ export function* smsLogin({countryCode, phone}) {
   if (accessToken) yield call(handleLogin, accessToken)
 }
 
-export default function* loginPageSaga() {
+export default function* authSaga() {
   yield all([
     takeLeading(actions.INIT, AccountKit.init),
     takeLatest(actions.EMAIL_LOGIN, emailLogin),
