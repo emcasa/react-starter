@@ -4,9 +4,12 @@ import {emitGraphQLErrors} from '@/lib/httpStatus'
 
 /**
  * HOC to emit 401 error when the user is not logged in
- * which causes the application to redirect to `/login`
+ * which causes the application to redirect to `/login`.
  */
 export default graphql(GET_USER_PROFILE, {
+  props: ({data}) => ({
+    user: data.userProfile
+  }),
   options: {
     onError: emitGraphQLErrors,
     fetchPolicy: 'cache-and-network'
