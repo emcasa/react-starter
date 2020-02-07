@@ -84,12 +84,14 @@
     "@babel/plugin-transform-react-inline-elements": "^7.2.0",
     "@babel/preset-env": "^7.6.0",
     "@babel/register": "^7.6.0",
+    "@emcasa/mock-server": "^0.3.1",
     "@storybook/addon-actions": "^5.3.12",
     "@storybook/addon-links": "^5.3.12",
     "@storybook/addon-storyshots": "^5.3.12",
     "@storybook/addons": "^5.3.12",
     "@storybook/react": "^5.3.12",
     "apollo-link-logger": "^1.2.3",
+    "apollo-link-schema": "^1.2.4",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-lodash": "^3.3.4",
@@ -109,6 +111,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga-test-factory": "^0.1.1",
     "require-context.macro": "^1.2.2",
+    "supertest": "^4.0.2",
     "webpack-blocks": "^2.0.1"
   }
 }
