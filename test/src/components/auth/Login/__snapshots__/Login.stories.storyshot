@@ -2,12 +2,12 @@
 
 exports[`Storyshots auth/Login default 1`] = `
 <div
-  className="sc-bdVaJa jVMktn"
+  className="sc-bdVaJa bTdzdU"
   height="100%"
   width="100%"
 >
   <div
-    className="sc-bdVaJa bUqnKa"
+    className="sc-bdVaJa efuCMq"
   >
     <p
       className="sc-htpNat MtFRC"
@@ -18,7 +18,7 @@ exports[`Storyshots auth/Login default 1`] = `
     </p>
   </div>
   <div
-    className="sc-bdVaJa JiNTR"
+    className="sc-bdVaJa egRppH"
   >
     <button
       className="sc-bwzfXH hZxYyJ"
@@ -30,7 +30,7 @@ exports[`Storyshots auth/Login default 1`] = `
     </button>
   </div>
   <div
-    className="sc-bdVaJa JiNTR"
+    className="sc-bdVaJa egRppH"
   >
     <button
       className="sc-bwzfXH hZxYyJ"
