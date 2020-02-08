@@ -1,0 +1,12 @@
+{
+  "name": "browser",
+  "testEnvironment": "jsdom",
+  "setupFiles": [
+    "<rootDir>/test/setup/expectations.js",
+    "<rootDir>/test/setup/browser.js"
+  ],
+  "testMatch": [
+    "<rootDir>/test/components/**/?(*.)(spec|test).js",
+    "<rootDir>/test/redux/**/?(*.)(spec|test).js"
+  ]
+}
