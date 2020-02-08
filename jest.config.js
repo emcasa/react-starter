@@ -1,7 +1,6 @@
 module.exports = {
   projects: [
     require('./test/browser.config.json'),
-    require('./test/server.config.json'),
     require('./test/node.config.json')
   ],
   moduleFileExtensions: ['jsx', 'js', 'json'],

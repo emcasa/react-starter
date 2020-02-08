@@ -1,6 +1,7 @@
 jest.mock('@/config')
 jest.mock('@/graphql/client')
 
+import {JSDOM} from 'jsdom'
 import request from 'supertest'
 import {withExpress} from '@test/helpers/express'
 
@@ -11,7 +12,11 @@ describe('@server/controllers/client', () => {
         await request(app)
           .get('/')
           .expect(200)
-          .send()
+          .then((res) => {
+            const dom = new JSDOM(res.text)
+            const root = dom.window.document.getElementById('root')
+            root.innerHTML.should.equal('')
+          })
       })
     })
 
@@ -20,7 +25,11 @@ describe('@server/controllers/client', () => {
         await request(app)
           .get('/')
           .expect(200)
-          .send()
+          .then((res) => {
+            const dom = new JSDOM(res.text)
+            const root = dom.window.document.getElementById('root')
+            root.innerHTML.should.not.equal('')
+          })
       })
     })
   })

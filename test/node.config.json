@@ -1,10 +1,14 @@
 {
-  "displayName": "node",
+  "name": "node",
   "testEnvironment": "node",
+  "setupFiles": [
+    "<rootDir>/test/setup/server.env.js"
+  ],
   "setupFilesAfterEnv": [
     "<rootDir>/test/setup/global.setup.js"
   ],
   "testMatch": [
-    "<rootDir>/test/src/redux/**/?(*.)(spec|test).js"
+    "<rootDir>/test/src/redux/**/?(*.)(spec|test).js",
+    "<rootDir>/test/src/server/**/?(*.)(spec|test).js"
   ]
 }
