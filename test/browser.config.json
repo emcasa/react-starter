@@ -8,7 +8,7 @@
     "<rootDir>/test/setup/global.setup.js"
   ],
   "testMatch": [
-    "<rootDir>/test/components/**/?(*.)(spec|test).js",
-    "<rootDir>/test/redux/**/?(*.)(spec|test).js"
+    "<rootDir>/test/src/components/**/?(*.)(spec|test).js",
+    "<rootDir>/test/src/redux/**/?(*.)(spec|test).js"
   ]
 }
