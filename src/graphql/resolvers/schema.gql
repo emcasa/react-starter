@@ -1,0 +1,12 @@
+type HttpStatus {
+  code: Int!
+  message: String
+}
+
+type Query {
+  httpStatus: HttpStatus!
+}
+
+type Mutation {
+  setHttpStatus(code: Int!, message: String): HttpStatus!
+}
