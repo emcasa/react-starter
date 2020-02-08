@@ -8,6 +8,7 @@ import {SSR} from '@/config'
 export default async function clientRoute(req, res, next) {
   const context = {}
   const {apolloClient} = req
+  console.log('...', SSR)
   if (!SSR) {
     res.status(200).send(await renderDocument())
     return

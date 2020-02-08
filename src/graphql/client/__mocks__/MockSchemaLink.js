@@ -23,7 +23,7 @@ export default class MockSchemaLink extends ApolloLink {
    */
   mock(options) {
     const schema = createSchema(options)
-    const link = new SchemaLink(schema)
+    const link = new SchemaLink({schema})
     this.request = link.request.bind(link)
   }
 }
