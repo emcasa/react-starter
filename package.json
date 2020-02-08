@@ -12,32 +12,11 @@
     "build": "razzle build",
     "build:docker": "NODE_ENV=production razzle build && docker build .",
     "build:storybook": "build-storybook",
-    "test": "razzle test --env=jsdom",
+    "test": "NODE_ENV=test jest --watch",
     "test:storyshots": "storyshots",
     "lint": "eslint .",
     "format": "eslint --fix .",
     "storybook": "start-storybook -p 6006"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/razzle/config/jest/babelTransform.js",
-      "^.+\\.css$": "<rootDir>/node_modules/razzle/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/node_modules/razzle/config/jest/fileTransform.js"
-    },
-    "setupFiles": [
-      "<rootDir>/test/setup.js"
-    ],
-    "testMatch": [
-      "<rootDir>/test/**/?(*.)(spec|test).js"
-    ],
-    "moduleFileExtensions": [
-      "jsx",
-      "js",
-      "json"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ]
   },
   "dependencies": {
     "@absinthe/socket": "^0.2.1",
@@ -93,6 +72,7 @@
     "apollo-link-logger": "^1.2.3",
     "apollo-link-schema": "^1.2.4",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-macros": "^2.6.1",
@@ -106,6 +86,7 @@
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
+    "jest": "^25.1.0",
     "jsdom": "^16.1.0",
     "prettier": "^1.18.2",
     "react-test-renderer": "^16.9.0",

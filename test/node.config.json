@@ -1,0 +1,12 @@
+{
+  "name": "node",
+  "testEnvironment": "node",
+  "setupFiles": [
+    "<rootDir>/test/setup/expectations.js",
+    "<rootDir>/test/setup/server.js"
+  ],
+  "testMatch": [
+    "<rootDir>/test/redux/**/?(*.)(spec|test).js",
+    "<rootDir>/test/server/**/?(*.)(spec|test).js"
+  ]
+}
