@@ -1,5 +1,5 @@
 {
-  "name": "browser",
+  "displayName": "browser",
   "testEnvironment": "jsdom",
   "setupFiles": [
     "<rootDir>/test/setup/browser.env.js"

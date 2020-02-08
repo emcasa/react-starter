@@ -23,9 +23,12 @@ export const withExpress = createDescribe(
   (describeFn) =>
     function _withExpress(...args) {
       const [env, desc, fn] = withExpressArgs(args)
-      require('@/config').mock(env)
-      const app = require('@/server/server').default
-      describeFn(desc, () => fn(app))
+      describeFn(desc, () => {
+        const app = require('@/server/server').default
+        beforeAll(() => require('@/config').mock(env))
+        afterAll(() => require('@/config').restore())
+        fn(app)
+      })
     }
 )
 
