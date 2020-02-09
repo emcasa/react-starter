@@ -1,5 +1,5 @@
 import {action} from '@storybook/addon-actions'
-import Login from '@/components/auth/Login/Login'
+import Login from '@/components/auth/Login'
 
 export default {
   parameters: {fileName: __filename},
@@ -7,9 +7,6 @@ export default {
 }
 
 export const login = () => (
-  <Login
-    onSmsLogin={action('sms login')}
-    onEmailLogin={action('email login')}
-  />
+  <Login />
 )
 login.story = {name: 'default'}

@@ -3,18 +3,20 @@ import createAuthSaga from '@emcasa/login/lib/sagas/authSaga'
 import * as JWT from '@/lib/jwt'
 import * as action from './actions'
 
-const loginSaga = createAuthSaga({
-  onSuccess: function*(jwt) {
-    const client = yield getContext('apolloClient')
-    yield call(JWT.persist, jwt)
-    yield call([client, client.resetStore])
-  }
+export function* loginSuccess(jwt) {
+  const client = yield getContext('apolloClient')
+  yield call(JWT.persist, jwt)
+  yield call([client, client.resetStore])
+}
+
+export const login = createAuthSaga({
+  onSuccess: loginSuccess
 })
 
-function* logout() {
+export function* logout() {
   yield call(JWT.reset)
 }
 
 export default function* authSaga() {
-  yield all([takeEvery(action.LOGOUT, logout), fork(loginSaga)])
+  yield all([takeEvery(action.LOGOUT, logout), fork(login)])
 }
