@@ -10,76 +10,69 @@ describe('@redux/modules/auth/saga', () => {
     query: () => null,
     mutate: () => null
   }
-  const sagaTest = sagaTestFactory(
-    {context: {apolloClient}},
-    {it: it, before: beforeAll}
-  )
 
-  describe('smsLogin({countryCode, phone})', () => {
-    const countryCode = '+55'
-    const phone = '2199999999'
+  const sagaTest = sagaTestFactory({context: {apolloClient}})
 
-    const it = sagaTest(sagas.smsLogin, {countryCode, phone})
+  const countryCode = '+55'
+  const phone = '2199999999'
 
-    it('calls sms AccountKit login', ({value: {payload}}) => {
+  sagaTest(sagas.smsLogin, {countryCode, phone}).do((it) => {
+    it('calls sms AccountKit login', ({payload}) => {
       payload.fn.should.equal(AccountKit.login)
       payload.args[0].should.equal('PHONE')
       payload.args[1].should.deep.equal({countryCode, phoneNumber: phone})
       return 'some api token'
     })
 
-    it('calls handleLogin saga', ({value: {payload}}) => {
+    it('calls handleLogin saga', ({payload}) => {
       payload.fn.should.equal(sagas.handleLogin)
       payload.args[0].should.equal('some api token')
     })
   })
 
-  describe('emailLogin({email})', () => {
-    const email = 'dev@emcasa.com'
-    const it = sagaTest(sagas.emailLogin, {email})
+  const email = 'dev@emcasa.com'
 
-    it('calls email AccountKit login', ({value: {payload}}) => {
+  sagaTest(sagas.emailLogin, {email}).do((it) => {
+    it('calls email AccountKit login', ({payload}) => {
       payload.fn.should.equal(AccountKit.login)
       payload.args[0].should.equal('EMAIL')
       payload.args[1].should.deep.equal({emailAddress: email})
       return 'some api token'
     })
 
-    it('calls handleLogin saga', ({value: {payload}}) => {
+    it('calls handleLogin saga', ({payload}) => {
       payload.fn.should.equal(sagas.handleLogin)
       payload.args[0].should.equal('some api token')
     })
   })
 
-  describe('handleLogin(accessToken)', () => {
-    const accessToken = 'some api token'
-    const handleLoginTest = sagaTest(sagas.handleLogin, accessToken)
-    const it = handleLoginTest
+  const accessToken = 'some api token'
 
-    it('calls accountKitSignIn mutation', ({value: {payload}}) => {
+  sagaTest(sagas.handleLogin, accessToken).do((it) => {
+    it('calls accountKitSignIn mutation', ({payload}) => {
       payload.fn.should.equal(apolloClient.mutate)
       payload.args[0].mutation.should.equal(ACCOUNT_KIT_SIGN_IN)
       payload.args[0].variables.should.deep.equal({accessToken})
     })
 
-    describe('failed login', () => {
-      const it = handleLoginTest.clone({data: {accountKitSignIn: {}}})
-
-      it('terminates', ({done}) => done.should.equal(true))
+    it.clone('failed login', {data: {accountKitSignIn: {}}}, (it) => {
+      it('terminates', (_, {done}) => done.should.equal(true))
     })
 
-    describe('successful login', () => {
-      const it = handleLoginTest.clone({
+    it.clone(
+      'successful login',
+      {
         data: {accountKitSignIn: {jwt: 'some jwt', user: {id: 1}}}
-      })
-
-      it('persists JWT', ({value: {payload}}) => {
-        payload.fn.should.equal(JWT.persist)
-        payload.args[0].should.equal('some jwt')
-      })
-      it('resets graphql cache', ({value: {payload}}) => {
-        payload.fn.should.equal(apolloClient.resetStore)
-      })
-    })
+      },
+      (it) => {
+        it('persists JWT', ({payload}) => {
+          payload.fn.should.equal(JWT.persist)
+          payload.args[0].should.equal('some jwt')
+        })
+        it('resets graphql cache', ({payload}) => {
+          payload.fn.should.equal(apolloClient.resetStore)
+        })
+      }
+    )
   })
 })
