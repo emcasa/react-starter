@@ -24,7 +24,7 @@ describe('@redux/modules/auth/saga', () => {
       return 'some api token'
     })
 
-    it('calls handleLogin saga', ({payload}) => {
+    it('calls handleLogi n saga', ({payload}) => {
       payload.fn.should.equal(sagas.handleLogin)
       payload.args[0].should.equal('some api token')
     })
