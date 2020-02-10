@@ -11,8 +11,6 @@
     "no-unused-expressions": "off"
   },
   "globals": {
-    "context": true,
-    "server": true,
-    "withExpress": true
+    "context": true
   }
 }

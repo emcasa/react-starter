@@ -8,7 +8,6 @@ import {withExpress} from '@test/helpers/express'
 describe('@server/controllers/client', () => {
   describe('GET /', () => {
     withExpress({SSR: false}, (app) => {
-      console.log('lmmaoo')
       it('responds with status 200', async () => {
         await request(app)
           .get('/')
