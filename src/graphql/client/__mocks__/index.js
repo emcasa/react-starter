@@ -1,5 +1,6 @@
 import {ApolloClient} from 'apollo-client'
 import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory'
+import resolvers from '@/graphql/resolvers'
 import initialState from '@/graphql/resolvers/initialState'
 import MockSchemaLink from './MockSchemaLink'
 
@@ -16,6 +17,7 @@ export default (options, state) => {
   const client = new ApolloClient({
     ssrMode: true,
     link: schema,
+    resolvers,
     cache
   })
   client.schema = schema
