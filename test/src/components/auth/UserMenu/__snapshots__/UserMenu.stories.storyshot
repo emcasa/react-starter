@@ -16,6 +16,7 @@ exports[`Storyshots auth/UserMenu default 1`] = `
     className="sc-bwzfXH kAgpFR"
     fontSize="default"
     height="medium"
+    onClick={[Function]}
   >
     <div
       className="sc-bxivhb dIBQqP"
