@@ -6,7 +6,7 @@ export default function PhoneInput({value, onChange}) {
   const onChangeInput = (e) =>
     onChange(Object.assign({}, value, {[e.target.name]: e.target.value}))
   return (
-    <Row flex>
+    <Row flex={1}>
       <Col mr={2}>
         <Input
           hideErrorView

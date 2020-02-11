@@ -1,10 +1,16 @@
 import {ApolloClient} from 'apollo-client'
 import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory'
+import {getToken} from '@/lib/jwt'
 import initialState from '../resolvers/initialState'
 import resolvers from '../resolvers'
 import createLink from './link'
 
 let apolloClient = null
+
+const def = (options) => ({
+  getToken,
+  ...options
+})
 
 function createApolloClient(options, state) {
   const cache = new InMemoryCache({
@@ -16,7 +22,7 @@ function createApolloClient(options, state) {
   const client = new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser,
-    link: createLink(options),
+    link: createLink(def(options)),
     resolvers,
     cache
   })

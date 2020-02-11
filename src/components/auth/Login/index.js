@@ -4,11 +4,11 @@ import Row from '@emcasa/ui-dom/components/Row'
 import Login from '@emcasa/login/lib/LoginSaga'
 import PhoneInput from './PhoneInput'
 
-const sanitizePhoneInput = ({phone = '', areaCode = ''}) =>
+const sanitizePhoneInput = ({phone, areaCode}) =>
   `${areaCode}${phone}`.replace(/[^\d]/g, '')
 
 export default function LoginView() {
-  const [phone, setPhone] = useState()
+  const [phone, setPhone] = useState({phone: '', areaCode: ''})
 
   return (
     <Row
@@ -16,7 +16,8 @@ export default function LoginView() {
       margin="auto"
       onSubmit={(e) => {
         e.preventDefault()
-        window.EmCasaLogin.open(sanitizePhoneInput(phone)) // 😩
+        const phoneInput = sanitizePhoneInput(phone)
+        if (phoneInput) window.EmCasaLogin.open(phoneInput) // 😩
         return false
       }}
     >
