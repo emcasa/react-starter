@@ -13,6 +13,5 @@ export const isGraphQLResponseError = (error) =>
  * @see src/graphql/client/link/errorLink.js
  */
 export const emitGraphQLErrors = (error) => {
-  console.log(error)
   if (isGraphQLResponseError(error)) error.graphQLErrors[0].emit()
 }

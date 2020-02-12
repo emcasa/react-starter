@@ -33,7 +33,7 @@ describe('@server/controllers/client', () => {
           })
       })
 
-      it('responds with the same status as the server', async () => {
+      it('responds with the same status as the graphql server', async () => {
         const apolloClient = () =>
           createApolloClient({
             initialState: {

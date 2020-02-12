@@ -15,7 +15,7 @@ import LoginPage from '@/pages/login'
 describe('@pages/login', () => {
   const container = createTestElement()
 
-  context('with unauthenticated user', () => {
+  context('unauthenticated user', () => {
     const history = createHistory({pathname: '/login'})
     const apolloClient = createApolloClient()
 
@@ -32,7 +32,7 @@ describe('@pages/login', () => {
     })
   })
 
-  context('with authenticated user', () => {
+  context('authenticated user', () => {
     const apolloClient = createApolloClient({
       mocks: {
         RootQueryType: () => ({

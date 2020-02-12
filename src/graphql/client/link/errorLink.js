@@ -14,7 +14,7 @@ const enhanceGraphQLError = (context) => (error) => ({
    * Update httpStatus state to this error's response
    */
   emit: () => {
-    const code = error.code || 500
+    const code = error.code || error.extensions.code || 500
     const message = StatusCodes[code] || error.message
     setHttpStatus({}, {code, message}, context)
   }
