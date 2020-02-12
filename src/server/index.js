@@ -4,7 +4,7 @@ require('dotenv').config()
 
 let app = require('./server').default
 
-const server = http.createServer(app)
+const server = http.createServer(app())
 
 const PORT = process.env.PORT || 3000
 

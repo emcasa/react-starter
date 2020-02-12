@@ -1,6 +1,5 @@
 import {ApolloLink} from 'apollo-link'
 import {SchemaLink} from 'apollo-link-schema'
-import merge from 'merge-deep'
 import {createSchema} from '@emcasa/mock-server/lib/graphql'
 
 const mocks = {
@@ -29,7 +28,10 @@ export default class MockSchemaLink extends ApolloLink {
    * @see https://www.apollographql.com/docs/graphql-tools/mocking/#mocking-interfaces
    */
   mock(options) {
-    const schema = createSchema(merge(options, {mocks}))
+    const schema = createSchema({
+      mocks: options.mocks || mocks,
+      resolvers: options.resolvers
+    })
     const link = new SchemaLink({schema})
     this.request = link.request.bind(link)
   }

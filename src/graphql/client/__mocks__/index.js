@@ -1,12 +1,15 @@
 import {ApolloClient} from 'apollo-client'
 import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory'
-import resolvers from '@/graphql/resolvers'
-import initialState from '@/graphql/resolvers/initialState'
+import merge from 'merge-deep'
+import clientResolvers from '@/graphql/resolvers'
+import clientInitialState from '@/graphql/resolvers/initialState'
 import MockSchemaLink from './MockSchemaLink'
 
 export let schema
 
-export default (options, state) => {
+export default (options = {}, state) => {
+  const resolvers = merge({}, clientResolvers, options.clientResolvers)
+  const initialState = merge({}, clientInitialState, options.initialState)
   schema = new MockSchemaLink(options)
   const cache = new InMemoryCache({
     dataIdFromObject: (data) =>
@@ -24,5 +27,6 @@ export default (options, state) => {
     cache
   })
   client.schema = schema
+  client.mock = schema.mock
   return client
 }
