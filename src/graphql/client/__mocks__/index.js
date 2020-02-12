@@ -4,12 +4,13 @@ import MockSchemaLink from './MockSchemaLink'
 
 export let schema
 
-export default (_, initialState) => {
-  schema = new MockSchemaLink()
+export default (options, state) => {
+  schema = new MockSchemaLink(options)
   const cache = new InMemoryCache({
     dataIdFromObject: (data) =>
       data.uuid ? data.uuid : defaultDataIdFromObject(data)
-  }).restore(initialState || {})
+  })
+  if (state) cache.restore(state)
   const client = new ApolloClient({
     ssrMode: true,
     link: schema,
