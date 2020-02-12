@@ -13,7 +13,10 @@ export default (options, state) => {
       data.uuid ? data.uuid : defaultDataIdFromObject(data)
   })
   if (state) cache.restore(state)
+<<<<<<< HEAD
   else cache.writeData({data: initialState})
+=======
+>>>>>>> mockable apollo client
   const client = new ApolloClient({
     ssrMode: true,
     link: schema,
