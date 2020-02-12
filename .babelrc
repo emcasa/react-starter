@@ -5,6 +5,7 @@
   "plugins": [
     "macros",
     "react-require",
+    "transform-class-properties",
     "@babel/plugin-transform-react-inline-elements",
     "@babel/plugin-transform-react-constant-elements",
     [
@@ -12,22 +13,13 @@
       {
         "root": "./",
         "alias": {
+          "@test": "./test",
           "@": "./src"
         }
       }
     ]
   ],
   "env": {
-    "test": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "modules": "cjs"
-          }
-        ]
-      ]
-    },
     "development": {
       "plugins": [
         [

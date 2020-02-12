@@ -9,5 +9,8 @@
     "func-names": "off",
     "global-require": "off",
     "no-unused-expressions": "off"
+  },
+  "globals": {
+    "context": true
   }
 }

@@ -1,0 +1,6 @@
+{
+  "client": {
+    "css": "bundle.css",
+    "js": "bundle.js"
+  }
+}

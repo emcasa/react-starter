@@ -1,0 +1,14 @@
+{
+  "displayName": "web",
+  "testEnvironment": "jsdom",
+  "setupFiles": [
+    "<rootDir>/test/setup/web.env.js"
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/test/setup/global.setup.js"
+  ],
+  "testMatch": [
+    "<rootDir>/test/src/**/?(*.)(spec|test).js",
+    "<rootDir>/test/src/**/?(*.)web(spec|test).js"
+  ]
+}
