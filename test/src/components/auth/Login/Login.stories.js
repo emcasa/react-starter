@@ -1,5 +1,5 @@
 import Login from '@/components/auth/Login'
-import ContextProvider from '@test/helpers/ContextProvider'
+import ContextProvider from '@test/helpers/context'
 
 export default {
   parameters: {fileName: __filename},

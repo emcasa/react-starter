@@ -8,8 +8,9 @@ import LoginPage from './LoginPage'
 function redirectAuthenticatedUser() {
   const {user, history, location} = this.props
   let returnTo = (location.state && location.state.returnTo) || '/'
-  if (returnTo == history.location.pathname) returnTo = '/'
-  if (user) history.push(returnTo)
+  if (returnTo == '/login') returnTo = '/'
+  else if (returnTo == history.location.pathname) return
+  if (user) history.push(returnTo, location.state)
 }
 
 export default compose(
