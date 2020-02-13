@@ -24,15 +24,13 @@ const emitServerErrors = emitGraphQLErrors(shouldEmitGraphQLError)
  * @param {*} ctx.apolloClient         Apollo client
  */
 export async function renderDocument(element, {store, apolloClient} = {}) {
-  let markup,
-    styles,
-    chunks = {}
+  let markup, styles
+  const chunkExtractor = new ChunkExtractor({
+    statsFile,
+    entrypoints: ['client']
+  })
   if (element) {
     const styleSheet = new ServerStyleSheet()
-    const chunkExtractor = new ChunkExtractor({
-      statsFile,
-      entrypoints: ['client']
-    })
     const prep = flow([
       styleSheet.collectStyles.bind(styleSheet),
       chunkExtractor.collectChunks.bind(chunkExtractor)
@@ -45,11 +43,6 @@ export async function renderDocument(element, {store, apolloClient} = {}) {
       await store.close()
       markup = ReactDOM.renderToString(prep(element))
       styles = styleSheet.getStyleElement()
-      chunks = {
-        styles: chunkExtractor.getStyleElements(),
-        scripts: chunkExtractor.getScriptElements(),
-        links: chunkExtractor.getLinkElements()
-      }
     } finally {
       styleSheet.seal()
     }
@@ -59,7 +52,15 @@ export async function renderDocument(element, {store, apolloClient} = {}) {
     apollo: apolloClient ? apolloClient.extract() : undefined
   }
   const html = ReactDOM.renderToStaticMarkup(
-    <Document state={state} chunks={chunks} styles={styles}>
+    <Document
+      state={state}
+      chunks={{
+        styles: chunkExtractor.getStyleElements(),
+        scripts: chunkExtractor.getScriptElements(),
+        links: chunkExtractor.getLinkElements()
+      }}
+      styles={styles}
+    >
       {markup}
     </Document>
   )
