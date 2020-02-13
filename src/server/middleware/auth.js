@@ -16,7 +16,7 @@ export default (
   handleUnauthorizedFn = handleUnauthorized
 ) =>
   async function authMiddleware(req, res, next) {
-    if (!req.user) {
+    if (req.jwt && !req.user) {
       // eslint-disable-next-line require-atomic-updates
       req.user = await req.apolloClient
         .query({query: GET_PROFILE})
