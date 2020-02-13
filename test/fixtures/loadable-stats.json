@@ -1,0 +1,225 @@
+{
+  "errors": [],
+  "warnings": [],
+  "version": "4.41.5",
+  "hash": "0c23b82baf16b411f95a",
+  "publicPath": "/",
+  "outputPath": "/emcasa/react-starter/build/public",
+  "assetsByChunkName": {
+    "client": [
+      "client.bundle.js",
+      "client.bundle.js.map"
+    ],
+    "index": [
+      "index.bundle.js",
+      "index.bundle.js.map"
+    ],
+    "runtime~client": [
+      "static/js/bundle.36a19f61.js",
+      "static/js/bundle.36a19f61.js.map"
+    ],
+    "vendors~client": [
+      "vendors~client.bundle.js",
+      "vendors~client.bundle.js.map"
+    ],
+    "vendors~index": [
+      "vendors~index.bundle.js",
+      "vendors~index.bundle.js.map"
+    ]
+  },
+  "assets": [
+    {
+      "name": "client.bundle.js",
+      "size": 14206,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "client"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "client.bundle.js.map",
+      "size": 30938,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "index.bundle.js",
+      "size": 2321,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "index"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "index.bundle.js.map",
+      "size": 6615,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "index"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "static/js/bundle.36a19f61.js",
+      "size": 2364,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "runtime~client"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "static/js/bundle.36a19f61.js.map",
+      "size": 12482,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "runtime~client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~client.bundle.js",
+      "size": 542922,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [
+        "vendors~client"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "vendors~client.bundle.js.map",
+      "size": 2083219,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [
+        "vendors~client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~index.bundle.js",
+      "size": 62922,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [
+        "vendors~index"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "vendors~index.bundle.js.map",
+      "size": 255101,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [
+        "vendors~index"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    }
+  ],
+  "filteredAssets": 0,
+  "entrypoints": {
+    "client": {
+      "chunks": [
+        2,
+        3,
+        0
+      ],
+      "assets": [
+        "static/js/bundle.36a19f61.js",
+        "static/js/bundle.36a19f61.js.map",
+        "vendors~client.bundle.js",
+        "vendors~client.bundle.js.map",
+        "client.bundle.js",
+        "client.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "namedChunkGroups": {
+    "client": {
+      "chunks": [
+        2,
+        3,
+        0
+      ],
+      "assets": [
+        "static/js/bundle.36a19f61.js",
+        "static/js/bundle.36a19f61.js.map",
+        "vendors~client.bundle.js",
+        "vendors~client.bundle.js.map",
+        "client.bundle.js",
+        "client.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "index": {
+      "chunks": [
+        4,
+        1
+      ],
+      "assets": [
+        "vendors~index.bundle.js",
+        "vendors~index.bundle.js.map",
+        "index.bundle.js",
+        "index.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 5,
+      "debug": false
+    }
+  },
+  "children": []
+}

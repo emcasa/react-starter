@@ -1,4 +1,4 @@
-import renderDocument from '@/pages/document/render'
+import {renderDocument} from '@/lib/ssr'
 import {setHttpStatus} from '@/graphql/resolvers/Mutation'
 
 export default async function errorHandler(error, req, res, _next) {

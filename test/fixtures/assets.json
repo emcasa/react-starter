@@ -1,6 +1,17 @@
 {
   "client": {
-    "css": "bundle.css",
-    "js": "bundle.js"
+    "js": "/client.bundle.js"
+  },
+  "index": {
+    "js": "/index.bundle.js"
+  },
+  "runtime~client": {
+    "js": "/static/js/bundle.36a19f61.js"
+  },
+  "vendors~client": {
+    "js": "/vendors~client.bundle.js"
+  },
+  "vendors~index": {
+    "js": "/vendors~index.bundle.js"
   }
 }

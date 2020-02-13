@@ -1,5 +1,5 @@
 import {Redirect} from 'react-router'
-import LoginPage from '@/pages/login'
+import LoginPage from '@/pages/login/lazy'
 
 function RedirectToLoginPage({location}) {
   return (

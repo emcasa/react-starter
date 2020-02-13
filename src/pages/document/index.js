@@ -1,14 +1,12 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
-
 const serialize = (data) => JSON.stringify(data).replace(/</g, '\\u003c')
 
 /**
  * Renders document markup on the server-side.
  */
-export default function Document({children, styles, state}) {
+export default function Document({children, styles, chunks, state}) {
   const head = Helmet.rewind()
   const html = head.htmlAttributes.toComponent()
   return (
@@ -23,15 +21,14 @@ export default function Document({children, styles, state}) {
         {head.meta.toComponent()}
         {head.link.toComponent()}
         {head.script.toComponent()}
+        {chunks.links}
+        {chunks.scripts}
         <link
           href="https://fonts.googleapis.com/css?family=Rubik&display=swap"
           rel="stylesheet"
         />
-        {assets.client.css && (
-          <link rel="stylesheet" href={assets.client.css} />
-        )}
+        {chunks.styles}
         {styles}
-        <script defer src={assets.client.js} />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.__initialState = ${serialize(state)}`
@@ -50,6 +47,12 @@ Document.propTypes = {
   children: PropTypes.string,
   /** Style element extracted from styled-components' ServerStyleSheet */
   styles: PropTypes.node,
+  /** Elements extracted from @loadable/server's ChunkExtractor */
+  chunks: PropTypes.shape({
+    styles: PropTypes.node,
+    scripts: PropTypes.node,
+    links: PropTypes.node
+  }),
   /** Redux store preloaded state */
   state: PropTypes.object
 }

@@ -1,5 +1,5 @@
 import GET_HTTP_STATUS from '@/graphql/queries/httpStatus'
-import renderDocument from '@/pages/document/render'
+import {renderDocument} from '@/lib/ssr'
 import SSRApp from '@/server/App'
 import {SSR} from '@/config'
 
