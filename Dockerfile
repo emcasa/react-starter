@@ -1,4 +1,4 @@
-FROM node:12.10
+FROM node:12.10-alpine
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="EmCasa <dev@emcasa.com>" \
@@ -10,13 +10,14 @@ LABEL maintainer="EmCasa <dev@emcasa.com>" \
       org.opencontainers.image.revision=$VCS_REF \
       org.opencontainers.created=$BUILD_DATE
 
-# Setup workdir
+# Setup environment
 ################################################################################
 
 WORKDIR /opt/emcasa
+
 COPY ./build /opt/emcasa
 
-# Server variables
+# Variables
 ################################################################################
 
 ARG NODE_ENV
@@ -32,6 +33,8 @@ ARG APOLLO_ENGINE_URL
 ENV APOLLO_ENGINE_URL=$APOLLO_ENGINE_URL
 
 EXPOSE 3000/tcp
+
+################################################################################
 
 ENTRYPOINT ["node"]
 CMD ["server.js"]

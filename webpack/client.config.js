@@ -14,8 +14,6 @@ module.exports = (config) =>
     setEnv({
       NODE_ENV: 'development',
       API_URL: null,
-      WS_URL: null,
-      APOLLO_ENGINE_URL: null,
-      SSR: false
+      APOLLO_ENGINE_URL: null
     })
   ])

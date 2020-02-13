@@ -6,9 +6,5 @@
       "HostPort": "80"
     }
   ],
-  "Image": {
-    "Name": "",
-    "Update": true
-  },
   "Logging": "/var/log/nodejs/nodejs.log"
 }
