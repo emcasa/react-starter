@@ -5,5 +5,9 @@ import Nav from './Nav'
 export default graphql(GET_USER_PROFILE, {
   props: ({data}) => ({
     user: data.userProfile
-  })
+  }),
+  options: {
+    errorPolicy: 'ignore',
+    fetchPolicy: 'cache-first'
+  }
 })(Nav)

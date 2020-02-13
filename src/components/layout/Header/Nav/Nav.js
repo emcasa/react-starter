@@ -12,7 +12,7 @@ export default function Nav({user}) {
         </Button>
       </NavLink>
       {user ? (
-        <UserMenu />
+        <UserMenu user={user} />
       ) : (
         <NavLink to="/login">
           <Button link color="white">

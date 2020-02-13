@@ -4,6 +4,8 @@ import {ServerStyleSheet} from 'styled-components'
 import {isGraphQLResponseError, emitGraphQLErrors} from '@/lib/httpStatus'
 import Document from './index'
 
+const shouldEmitGraphQLError = ({code}) => Math.floor(code / 100) == 5
+
 /**
  * Renders a react element to string
  * @param {React.ReactElement} element React element to render
@@ -21,7 +23,7 @@ export default async function renderDocument(
     try {
       await getDataFromTree(element).catch((error) => {
         if (!isGraphQLResponseError(error)) throw error
-        else emitGraphQLErrors(error)
+        else if (shouldEmitGraphQLError(error)) emitGraphQLErrors(error)
       })
       await store.close()
       markup = ReactDOM.renderToString(styleSheet.collectStyles(element))
