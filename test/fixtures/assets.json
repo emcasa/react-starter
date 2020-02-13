@@ -1,17 +1,23 @@
 {
+  "vendors~pages/home~pages/login": {
+    "js": "/vendors~pages/home~pages/login.bundle.js"
+  },
   "client": {
     "js": "/client.bundle.js"
   },
-  "index": {
-    "js": "/index.bundle.js"
+  "pages/home": {
+    "js": "/pages/home.bundle.js"
+  },
+  "pages/login": {
+    "js": "/pages/login.bundle.js"
   },
   "runtime~client": {
-    "js": "/static/js/bundle.36a19f61.js"
+    "js": "/static/js/bundle.5c668c46.js"
   },
   "vendors~client": {
     "js": "/vendors~client.bundle.js"
   },
-  "vendors~index": {
-    "js": "/vendors~index.bundle.js"
+  "vendors~pages/login": {
+    "js": "/vendors~pages/login.bundle.js"
   }
 }
