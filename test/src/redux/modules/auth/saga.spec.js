@@ -13,8 +13,12 @@ describe('@redux/modules/auth/saga', () => {
   const sagaTest = sagaTestFactory({context: {apolloClient}})
 
   sagaTest(sagas.logout).do((it) => {
-    it('clears token cookie', ({payload}) => {
-      payload.fn.should.equal(JWT.reset)
+    it('clears token cookie', (effect) => {
+      effect.should.deep.equal(call(JWT.reset))
+    })
+
+    it('resets apollo store', (effect) => {
+      effect.should.deep.equal(call([apolloClient, apolloClient.resetStore]))
     })
   })
 

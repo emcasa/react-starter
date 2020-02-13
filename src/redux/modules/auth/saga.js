@@ -14,7 +14,9 @@ export const login = createAuthSaga({
 })
 
 export function* logout() {
+  const client = yield getContext('apolloClient')
   yield call(JWT.reset)
+  yield call([client, client.resetStore])
 }
 
 export default function* authSaga() {
