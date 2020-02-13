@@ -8,13 +8,16 @@ const logErrors = (data) =>
     networkError: data.networkError
   })
 
+const errorCode = (error) => error.code || error.extensions.code || 500
+
 const enhanceGraphQLError = (context) => (error) => ({
   ...error,
+  code: errorCode(error),
   /**
    * Update httpStatus state to this error's response
    */
   emit: () => {
-    const code = error.code || error.extensions.code || 500
+    const code = errorCode(error)
     const message = StatusCodes[code] || error.message
     setHttpStatus({}, {code, message}, context)
   }
