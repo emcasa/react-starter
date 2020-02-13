@@ -7,6 +7,6 @@ export default {
 }
 
 export const userMenu = () => (
-  <UserMenu color="pink" user={{name: 'test'}} onLogOut={action('logout')} />
+  <UserMenu color="pink" user={{name: 'test'}} onLogout={action('logout')} />
 )
 userMenu.story = {name: 'default'}

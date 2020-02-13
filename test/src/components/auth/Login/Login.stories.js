@@ -1,5 +1,5 @@
-import {action} from '@storybook/addon-actions'
-import Login from '@/components/auth/Login/Login'
+import Login from '@/components/auth/Login'
+import ContextProvider from '@test/helpers/context'
 
 export default {
   parameters: {fileName: __filename},
@@ -7,9 +7,8 @@ export default {
 }
 
 export const login = () => (
-  <Login
-    onSmsLogin={action('sms login')}
-    onEmailLogin={action('email login')}
-  />
+  <ContextProvider>
+    <Login />
+  </ContextProvider>
 )
 login.story = {name: 'default'}

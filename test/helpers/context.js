@@ -21,7 +21,7 @@ function ContextProvider({children, history, store, apolloClient}) {
   )
 }
 
-function def(props) {
+export function defContext(props) {
   const ctx = {history: props.history || createHistory(props.location)}
   const apolloClient = props.apolloClient || createApolloClient()
   const store = ctx.store || createStore(ctx)
@@ -30,5 +30,5 @@ function def(props) {
 
 export default withPropsOnChange(
   ['history', 'store', 'apolloClient'],
-  def
+  defContext
 )(ContextProvider)

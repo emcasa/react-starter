@@ -2,7 +2,7 @@ import http from 'http'
 
 require('dotenv').config()
 
-let app = require('./server').default
+let app = require('./server').default()
 
 const server = http.createServer(app)
 
@@ -21,8 +21,8 @@ if (module.hot) {
     try {
       const nextApp = require('./server').default
       server.removeListener('request', app)
-      server.on('request', nextApp)
-      app = nextApp
+      app = nextApp()
+      server.on('request', app)
     } catch (error) {
       console.error(error)
     }

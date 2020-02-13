@@ -1,89 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
-<div
-  className="sc-bdVaJa bTdzdU"
-  height="100%"
-  width="100%"
->
-  <div
-    className="sc-bdVaJa efuCMq"
-  >
-    <p
-      className="sc-htpNat MtFRC"
-      color="dark"
-      fontSize="large"
-    >
-      Login with AccountKit
-    </p>
-  </div>
-  <div
-    className="sc-bdVaJa egRppH"
-  >
-    <button
-      className="sc-bwzfXH hZxYyJ"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
-    >
-      Login via Email
-    </button>
-  </div>
-  <div
-    className="sc-bdVaJa egRppH"
-  >
-    <button
-      className="sc-bwzfXH hZxYyJ"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
-    >
-      Login via SMS
-    </button>
-  </div>
-</div>
-`;
-
 exports[`Storyshots auth/Login default 1`] = `
-<div
-  className="sc-bdVaJa bTdzdU"
-  height="100%"
-  width="100%"
+<form
+  className="sc-bdVaJa goNcKG"
+  onSubmit={[Function]}
 >
   <div
-    className="sc-bdVaJa efuCMq"
+    className="sc-bdVaJa bTdzdU"
+    height="100%"
+    width="100%"
   >
-    <p
-      className="sc-htpNat MtFRC"
-      color="dark"
-      fontSize="large"
+    <div
+      className="sc-bdVaJa bchvPZ"
     >
-      Login with AccountKit
-    </p>
-  </div>
-  <div
-    className="sc-bdVaJa egRppH"
-  >
-    <button
-      className="sc-bwzfXH hZxYyJ"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
+      <div
+        className="sc-bdVaJa jYHlcv"
+      >
+        <div
+          className="sc-htoDjs jIxlAy"
+        >
+          <div
+            className="sc-htpNat ddLhyA"
+          >
+            <input
+              className="sc-gzVnrw bZZKqG"
+              fontSize="default"
+              height="tall"
+              letterSpacing="default"
+              maxLength="4"
+              name="areaCode"
+              onChange={[Function]}
+              pattern="\\\\d*"
+              placeholder="DDD"
+              size="4"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="sc-htoDjs iMhFRP"
+        >
+          <div
+            className="sc-htpNat ddLhyA"
+          >
+            <input
+              className="sc-gzVnrw bZZKqG"
+              fontSize="default"
+              height="tall"
+              letterSpacing="default"
+              name="phone"
+              onChange={[Function]}
+              placeholder="Telefone"
+              type="phone"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-bdVaJa drCBsh"
     >
-      Login via Email
-    </button>
+      <button
+        className="sc-bwzfXH bpstSw"
+        fontSize="default"
+        height="tall"
+        type="submit"
+      >
+        Entrar
+      </button>
+    </div>
   </div>
-  <div
-    className="sc-bdVaJa egRppH"
-  >
-    <button
-      className="sc-bwzfXH hZxYyJ"
-      fontSize="default"
-      height="medium"
-      onClick={[Function]}
-    >
-      Login via SMS
-    </button>
-  </div>
-</div>
+  <div />
+</form>
 `;

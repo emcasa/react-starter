@@ -1,19 +1,34 @@
-import {Helmet} from 'react-helmet'
-import Shell from '@/components/layout/Shell'
-import Header from '@/components/layout/Header'
-import Body from '@/components/layout/Body'
-import Login from '@/components/auth/Login'
+import compose from 'recompose/compose'
+import lifecycle from 'recompose/lifecycle'
+import {withRouter} from 'react-router-dom'
+import {graphql} from 'react-apollo'
+import GET_USER_PROFILE from '@/graphql/queries/userProfile'
+import LoginPage from './LoginPage'
 
-export default function LoginPage() {
-  return (
-    <Shell>
-      <Helmet>
-        <title>React Starter - Login</title>
-      </Helmet>
-      <Header />
-      <Body>
-        <Login />
-      </Body>
-    </Shell>
-  )
+function redirectAuthenticatedUser() {
+  const {user, history, location} = this.props
+  let returnTo = (location.state && location.state.returnTo) || '/'
+  if (returnTo == '/login') returnTo = '/'
+  else if (returnTo == history.location.pathname) return
+  if (user) history.push(returnTo, location.state)
 }
+
+export default compose(
+  withRouter,
+  graphql(GET_USER_PROFILE, {
+    props: ({data}) => ({
+      user: data.userProfile
+    }),
+    options: {
+      errorPolicy: 'ignore',
+      fetchPolicy: 'cache-and-network'
+    }
+  }),
+  lifecycle({
+    componentDidUpdate: redirectAuthenticatedUser,
+    componentDidMount: redirectAuthenticatedUser,
+    UNSAFE_componentWillMount: !process.browser
+      ? redirectAuthenticatedUser
+      : undefined
+  })
+)(LoginPage)

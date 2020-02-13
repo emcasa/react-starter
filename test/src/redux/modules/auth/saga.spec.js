@@ -1,8 +1,8 @@
+import {call} from 'redux-saga/effects'
 import sagaTestFactory from 'redux-saga-test-factory'
-import * as AccountKit from '@/lib/accountKit'
+import {TYPES} from '@emcasa/login/lib/sagas/actions'
 import * as JWT from '@/lib/jwt'
 import * as sagas from '@/redux/modules/auth/saga'
-import ACCOUNT_KIT_SIGN_IN from '@/graphql/mutations/accountKitSignIn'
 
 describe('@redux/modules/auth/saga', () => {
   const apolloClient = {
@@ -10,67 +10,62 @@ describe('@redux/modules/auth/saga', () => {
     query: () => null,
     mutate: () => null
   }
-
   const sagaTest = sagaTestFactory({context: {apolloClient}})
 
-  const countryCode = '+55'
-  const phone = '2199999999'
-
-  sagaTest(sagas.smsLogin, {countryCode, phone}).do((it) => {
-    it('calls sms AccountKit login', ({payload}) => {
-      payload.fn.should.equal(AccountKit.login)
-      payload.args[0].should.equal('PHONE')
-      payload.args[1].should.deep.equal({countryCode, phoneNumber: phone})
-      return 'some api token'
+  sagaTest(sagas.logout).do((it) => {
+    it('clears token cookie', (effect) => {
+      effect.should.deep.equal(call(JWT.reset))
     })
 
-    it('calls handleLogi n saga', ({payload}) => {
-      payload.fn.should.equal(sagas.handleLogin)
-      payload.args[0].should.equal('some api token')
+    it('resets apollo store', (effect) => {
+      effect.should.deep.equal(call([apolloClient, apolloClient.resetStore]))
     })
   })
 
-  const email = 'dev@emcasa.com'
+  sagaTest(sagas.login).do((it) => {
+    const isTakeAny = (action) => (effect) =>
+      effect.type === 'FORK' && effect.payload.args[0] === action
 
-  sagaTest(sagas.emailLogin, {email}).do((it) => {
-    it('calls email AccountKit login', ({payload}) => {
-      payload.fn.should.equal(AccountKit.login)
-      payload.args[0].should.equal('EMAIL')
-      payload.args[1].should.deep.equal({emailAddress: email})
-      return 'some api token'
-    })
-
-    it('calls handleLogin saga', ({payload}) => {
-      payload.fn.should.equal(sagas.handleLogin)
-      payload.args[0].should.equal('some api token')
-    })
-  })
-
-  const accessToken = 'some api token'
-
-  sagaTest(sagas.handleLogin, accessToken).do((it) => {
-    it('calls accountKitSignIn mutation', ({payload}) => {
-      payload.fn.should.equal(apolloClient.mutate)
-      payload.args[0].mutation.should.equal(ACCOUNT_KIT_SIGN_IN)
-      payload.args[0].variables.should.deep.equal({accessToken})
-    })
-
-    it.clone('failed login', {data: {accountKitSignIn: {}}}, (it) => {
-      it('terminates', (_, {done}) => done.should.equal(true))
-    })
-
-    it.clone(
-      'successful login',
-      {
-        data: {accountKitSignIn: {jwt: 'some jwt', user: {id: 1}}}
-      },
+    it.forks(
+      'fork EM_CASA_SUBMIT_TOKEN',
+      isTakeAny(TYPES.EM_CASA_SUBMIT_TOKEN),
       (it) => {
-        it('persists JWT', ({payload}) => {
-          payload.fn.should.equal(JWT.persist)
-          payload.args[0].should.equal('some jwt')
+        const jwt = 'test_jwt'
+        const user = {id: 123}
+
+        /**
+         *  Progress @emcasa/login's saga
+         */
+
+        it('takes an EM_CASA_SUBMIT_TOKEN', () => ({
+          type: TYPES.EM_CASA_SUBMIT_TOKEN,
+          token: 'test_token',
+          promiseDispatcher: {resolve: jest.fn(), reject: jest.fn()}
+        }))
+
+        it.forks('forks to @emcasa/login`s submitToken saga', () => true)
+
+        it('submits api token', ({payload}) => {
+          payload.fn.should.equal(apolloClient.mutate)
+          return {
+            data: {signInVerifyAuthenticationCode: {jwt, user}}
+          }
         })
-        it('resets graphql cache', ({payload}) => {
-          payload.fn.should.equal(apolloClient.resetStore)
+
+        /**
+         *  Actually test loginSuccess saga
+         */
+
+        it.forks(call(sagas.loginSuccess, jwt, user))
+
+        it('persists jwt', (effect) => {
+          effect.should.deep.equal(call(JWT.persist, jwt))
+        })
+
+        it('resets the graphql store', (effect) => {
+          effect.should.deep.equal(
+            call([apolloClient, apolloClient.resetStore])
+          )
         })
       }
     )
