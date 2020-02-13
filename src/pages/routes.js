@@ -1,7 +1,7 @@
 import {Route, Switch} from 'react-router-dom'
 import ErrorBoundary from './error/ErrorBoundary'
 import ErrorPage from './error'
-import HomePage from './home'
+import HomePage from './home/lazy'
 import LoginPage from './login/lazy'
 
 const NotFound = () => <ErrorPage emit statusCode={404} message="Not found" />

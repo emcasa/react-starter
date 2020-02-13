@@ -2,7 +2,7 @@ import loadable from '@loadable/component'
 
 export default loadable(() =>
   import(
-    /* webpackChunkName: "pages/login" */
+    /* webpackChunkName: "pages/home" */
     './index'
   )
 )
