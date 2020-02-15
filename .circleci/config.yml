@@ -79,7 +79,7 @@ jobs:
       - run: mkdir -p reports
       - run: yarn lint --format junit --output-file reports/eslint/results.xml
       - run: yarn test --ci --verbose --coverage
-      - store_test_results
+      - store_test_results:
           path: reports
       - store_artifacts:
           path: coverage
