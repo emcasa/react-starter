@@ -12,5 +12,6 @@ module.exports = {
       'razzle/config/jest/fileTransform'
     )
   },
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$']
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$'],
+  reporters: ['default', 'jest-junit']
 }
