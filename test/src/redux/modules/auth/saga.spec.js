@@ -1,6 +1,5 @@
 import {call} from 'redux-saga/effects'
 import sagaTestFactory from 'redux-saga-test-factory'
-import {TYPES} from '@emcasa/login/lib/sagas/actions'
 import * as JWT from '@/lib/jwt'
 import * as sagas from '@/redux/modules/auth/saga'
 
