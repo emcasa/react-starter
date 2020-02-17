@@ -1,0 +1,302 @@
+{
+  "errors": [],
+  "warnings": [],
+  "version": "4.41.5",
+  "hash": "27ab8b8614b9c2902173",
+  "publicPath": "/",
+  "outputPath": "/emcasa/react-starter/build/public",
+  "assetsByChunkName": {
+    "vendors~pages/home~pages/login": [
+      "vendors~pages/home~pages/login.bundle.js",
+      "vendors~pages/home~pages/login.bundle.js.map"
+    ],
+    "client": [
+      "client.bundle.js",
+      "client.bundle.js.map"
+    ],
+    "pages/home": [
+      "pages/home.bundle.js",
+      "pages/home.bundle.js.map"
+    ],
+    "pages/login": [
+      "pages/login.bundle.js",
+      "pages/login.bundle.js.map"
+    ],
+    "runtime~client": [
+      "static/js/bundle.5c668c46.js",
+      "static/js/bundle.5c668c46.js.map"
+    ],
+    "vendors~client": [
+      "vendors~client.bundle.js",
+      "vendors~client.bundle.js.map"
+    ],
+    "vendors~pages/login": [
+      "vendors~pages/login.bundle.js",
+      "vendors~pages/login.bundle.js.map"
+    ]
+  },
+  "assets": [
+    {
+      "name": "client.bundle.js",
+      "size": 14235,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "client"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "client.bundle.js.map",
+      "size": 29696,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "pages/home.bundle.js",
+      "size": 442,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "pages/home"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "pages/home.bundle.js.map",
+      "size": 630,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "pages/home"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "pages/login.bundle.js",
+      "size": 2321,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [
+        "pages/login"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "pages/login.bundle.js.map",
+      "size": 6621,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [
+        "pages/login"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "static/js/bundle.5c668c46.js",
+      "size": 2426,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [
+        "runtime~client"
+      ],
+      "info": {
+        "immutable": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "static/js/bundle.5c668c46.js.map",
+      "size": 12578,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [
+        "runtime~client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~client.bundle.js",
+      "size": 526133,
+      "chunks": [
+        5
+      ],
+      "chunkNames": [
+        "vendors~client"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "vendors~client.bundle.js.map",
+      "size": 2011517,
+      "chunks": [
+        5
+      ],
+      "chunkNames": [
+        "vendors~client"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~pages/home~pages/login.bundle.js",
+      "size": 17827,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "vendors~pages/home~pages/login"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "vendors~pages/home~pages/login.bundle.js.map",
+      "size": 73252,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "vendors~pages/home~pages/login"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    },
+    {
+      "name": "vendors~pages/login.bundle.js",
+      "size": 62914,
+      "chunks": [
+        6
+      ],
+      "chunkNames": [
+        "vendors~pages/login"
+      ],
+      "info": {},
+      "emitted": false
+    },
+    {
+      "name": "vendors~pages/login.bundle.js.map",
+      "size": 255107,
+      "chunks": [
+        6
+      ],
+      "chunkNames": [
+        "vendors~pages/login"
+      ],
+      "info": {
+        "development": true
+      },
+      "emitted": false
+    }
+  ],
+  "filteredAssets": 0,
+  "entrypoints": {
+    "client": {
+      "chunks": [
+        4,
+        5,
+        1
+      ],
+      "assets": [
+        "static/js/bundle.5c668c46.js",
+        "static/js/bundle.5c668c46.js.map",
+        "vendors~client.bundle.js",
+        "vendors~client.bundle.js.map",
+        "client.bundle.js",
+        "client.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "namedChunkGroups": {
+    "client": {
+      "chunks": [
+        4,
+        5,
+        1
+      ],
+      "assets": [
+        "static/js/bundle.5c668c46.js",
+        "static/js/bundle.5c668c46.js.map",
+        "vendors~client.bundle.js",
+        "vendors~client.bundle.js.map",
+        "client.bundle.js",
+        "client.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "pages/login": {
+      "chunks": [
+        0,
+        6,
+        3
+      ],
+      "assets": [
+        "vendors~pages/home~pages/login.bundle.js",
+        "vendors~pages/home~pages/login.bundle.js.map",
+        "vendors~pages/login.bundle.js",
+        "vendors~pages/login.bundle.js.map",
+        "pages/login.bundle.js",
+        "pages/login.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    },
+    "pages/home": {
+      "chunks": [
+        0,
+        2
+      ],
+      "assets": [
+        "vendors~pages/home~pages/login.bundle.js",
+        "vendors~pages/home~pages/login.bundle.js.map",
+        "pages/home.bundle.js",
+        "pages/home.bundle.js.map"
+      ],
+      "children": {},
+      "childAssets": {}
+    }
+  },
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 5,
+      "debug": false
+    }
+  },
+  "children": []
+}

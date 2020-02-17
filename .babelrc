@@ -8,6 +8,7 @@
     "transform-class-properties",
     "@babel/plugin-transform-react-inline-elements",
     "@babel/plugin-transform-react-constant-elements",
+    "@loadable/babel-plugin",
     [
       "module-resolver",
       {

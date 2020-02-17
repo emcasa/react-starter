@@ -1,3 +1,4 @@
+import {loadableReady} from '@loadable/component'
 import {createBrowserHistory} from 'history'
 import ReactDOM from 'react-dom'
 import initApollo from '@/graphql/client'
@@ -13,7 +14,7 @@ const AppWithContext = () => (
   <App store={store} apolloClient={apolloClient} history={history} />
 )
 
-ReactDOM.hydrate(<AppWithContext />, root)
+loadableReady(() => ReactDOM.hydrate(<AppWithContext />, root))
 
 if (module.hot) {
   module.hot.accept('../redux/store.js', () => {
