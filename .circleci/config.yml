@@ -72,7 +72,8 @@ jobs:
   test:
     <<: *nodejs
     environment:
-      JEST_JUNIT_OUTPUT_DIR: "reports/jest/results.xml"
+      JEST_JUNIT_OUTPUT_DIR: "reports/jest"
+      JEST_JUNIT_OUTPUT_NAME: "results.xml"
     steps:
       - attach_workspace:
           at: ~/emcasa

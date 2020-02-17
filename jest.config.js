@@ -13,5 +13,5 @@ module.exports = {
     )
   },
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$'],
-  reporters: ['default', 'jest-junit']
+  reporters: ['default', ['jest-junit', {outputDirectory: './tmp'}]]
 }
