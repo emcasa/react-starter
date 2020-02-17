@@ -31,4 +31,27 @@ yarn start
 
 ## Deploying
 
-🚀 [Guide for deploying to EB on CircleCI](https://gist.github.com/gabiseabra/92cdcc1c46d5604b83e2369e0271eaa3)
+This project is set up to deploy on ECR and Elastic Beanstalk using CircleCI.
+To enable this workflow do the following:
+
+In [.elasticbeanstalk/config.yml](.elasticbeanstalk/config.yml#L2), configure your eb project's name.
+For advanced customization you may use `.ebextensions/`
+([See the docs](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html)).
+
+In [.circleci/config.yml](.circleci/config.yml):
+- Edit `configurations` on [L16](.circleci/config.yml#L16) according to your project,
+- Replace all instances of `react-starter-staging` and `react-starter-production`
+  with your project's respective contexts and
+- Uncomment all jobs from [L136](.circleci/config.yml#L136)
+
+CircleCI needs these variables to deploy on AWS:
+
+```
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=***
+AWS_SECRET_ACCESS_KEY=***
+```
+
+Both the server and client get bundled on CircleCI, copied to a docker
+container and then deployed to ECR. This means that all application variables
+should be defined on the CircleCI context, which is only overridden by `.env`

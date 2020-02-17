@@ -1,0 +1,174 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.5.0
+
+environments:
+  - &nodejs
+    working_directory: ~/emcasa
+    docker:
+      - image: circleci/node:12
+  - &awsebcli
+    working_directory: ~/emcasa
+    docker:
+      - image: coxauto/aws-ebcli
+
+configurations:
+  - &env-staging
+    EB_ENV: ReactStarter-stg
+    AWS_ECR_REPO: react-starter-stg
+  - &env-production
+    EB_ENV: ReactStarter-prod
+    AWS_ECR_REPO: react-starter-prod
+
+cache:
+  - &cache-node-modules
+    paths:
+      - node_modules
+    key: -{{ .Environment.CACHE_VERSION }}-node-modules-{{ checksum "yarn.lock" }}
+  - &restore-node-modules
+    keys:
+      - -{{ .Environment.CACHE_VERSION }}-node-modules-{{ checksum "yarn.lock" }}
+  - &cache-babel
+    paths:
+      - node_modules/.cache
+    key: -{{ .Environment.CACHE_VERSION }}-babel-{{ checksum "yarn.lock" }}
+  - &restore-babel
+    keys:
+      - -{{ .Environment.CACHE_VERSION }}-babel-{{ checksum "yarn.lock" }}
+
+aliases:
+  - &aws-ecr-image
+      region: AWS_REGION
+      account-url: AWS_ECR_ACCOUNT_URL
+      repo: ${AWS_ECR_REPO}
+      tag: ${CIRCLE_SHA1},latest
+      extra-build-args: >-
+        --build-arg SSR=${SSR}
+        --build-arg API_URL=${API_URL}
+        --build-arg APOLLO_ENGINE_URL=${APOLLO_ENGINE_URL}
+  - &configure-dockerrun
+      name: Configure Dockerrun.aws.json
+      command: >
+        IMAGE="${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO}:latest";
+        CONFIG=$(jq ".Image = {Update: true, Name: \"${IMAGE}\"}" Dockerrun.aws.json)
+        echo $CONFIG > Dockerrun.aws.json
+
+jobs:
+  # Checkout code and install dependencies
+  checkout:
+    <<: *nodejs
+    steps:
+      - checkout
+      - restore_cache: *restore-node-modules
+      - restore_cache: *restore-babel
+      - run: echo $NPMRC | base64 --decode > .npmrc
+      - run: yarn install
+      - save_cache: *cache-node-modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+  # Run tests
+  test:
+    <<: *nodejs
+    environment:
+      JEST_JUNIT_OUTPUT_DIR: "reports/jest/results.xml"
+    steps:
+      - attach_workspace:
+          at: ~/emcasa
+      - run: mkdir -p reports
+      - run: yarn lint --format junit --output-file reports/eslint/results.xml
+      - run: yarn test --ci --verbose --coverage
+      - store_test_results:
+          path: reports
+      - store_artifacts:
+          path: coverage
+  # Build production bundle before deploying
+  build: &build-job
+    <<: *nodejs
+    steps:
+      - attach_workspace:
+          at: ~/emcasa
+      - run: NODE_ENV=production CI=false yarn build
+      - save_cache: *cache-babel
+      - persist_to_workspace:
+          root: .
+          paths: .
+  build-staging:
+    <<: *build-job
+    environment: *env-staging
+  build-production:
+    <<: *build-job
+    environment: *env-production
+  # Deploy image on AWS ECR
+  ecr-deploy: &ecr-deploy-job
+    executor: aws-ecr/default
+    steps:
+      - aws-ecr/build-and-push-image:
+          <<: *aws-ecr-image
+          checkout: false
+          attach-workspace: true
+  ecr-deploy-staging:
+    <<: *ecr-deploy-job
+    environment: *env-staging
+  ecr-deploy-production:
+    <<: *ecr-deploy-job
+    environment: *env-production
+  # Deploy on AWS EB
+  eb-deploy: &eb-deploy-job
+    <<: *awsebcli
+    steps:
+      - attach_workspace:
+          at: ~/emcasa
+      - run: *configure-dockerrun
+      - run: eb use $EB_ENV
+      - run: eb deploy
+      - store_artifacts:
+          path: ./Dockerrun.aws.json
+          destination: eb
+  eb-deploy-staging:
+    <<: *eb-deploy-job
+    environment: *env-staging
+  eb-deploy-production:
+    <<: *eb-deploy-job
+    environment: *env-production
+
+workflows:
+  commit:
+    jobs:
+      - checkout:
+          context: react-starter-staging
+      - test:
+          requires:
+            - checkout
+#      # Deploy workflow
+#      - deploy-staging-approval:
+#          type: approval
+#      - deploy-production-approval:
+#          type: approval
+#      - build-staging:
+#          context: react-starter-staging
+#          requires:
+#            - deploy-staging-approval
+#            - test
+#      - build-production:
+#          context: react-starter-production
+#          requires:
+#            - deploy-production-approval
+#            - test
+#      - ecr-deploy-staging:
+#          context: react-starter-staging
+#          requires:
+#            - build-staging
+#      - ecr-deploy-production:
+#          context: react-starter-production
+#          requires:
+#            - build-production
+#      - eb-deploy-staging:
+#          context: react-starter-staging
+#          requires:
+#            - ecr-deploy-staging
+#      - eb-deploy-production:
+#          context: react-starter-production
+#          requires:
+#            - ecr-deploy-production
