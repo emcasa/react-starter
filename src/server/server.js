@@ -5,6 +5,7 @@ import logMiddleware from './middleware/logging'
 import reactContextMiddleware from './middleware/reactContext'
 import authMiddleware from './middleware/auth'
 import clientRoute from './controllers/client'
+import offlineRoute from './controllers/offline'
 import errorHandler from './controllers/error'
 
 export default function createApplication(options = {}) {
@@ -14,6 +15,7 @@ export default function createApplication(options = {}) {
   app.use(logMiddleware())
   app.use(reactContextMiddleware(options))
   app.use(authMiddleware())
+  app.get('/offline.html', offlineRoute)
   app.get('/*', clientRoute)
   app.use(errorHandler)
 
