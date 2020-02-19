@@ -1,6 +1,6 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
-import {SERVICE_WORKER} from '@/config'
+import {SERVICE_WORKER, API_URL} from '@/config'
 import SerializedScript from './SerializedScript'
 import DeferredStylesheet from './DeferredStylesheet'
 import registerSW from './helpers/registerSW'
@@ -30,6 +30,9 @@ export default function Document({children, styles, chunks, state}) {
         {chunks.scripts}
         {chunks.styles}
         {styles}
+        <link rel="dns-prefetch" href={API_URL} />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <DeferredStylesheet href="https://fonts.googleapis.com/css?family=Rubik&display=swap" />
         <SerializedScript fn={initState} args={[state]} />
         <SerializedScript fn={registerSW} args={[SERVICE_WORKER]} />
