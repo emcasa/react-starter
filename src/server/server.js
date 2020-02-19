@@ -12,13 +12,13 @@ import errorHandler from './controllers/error'
 export default function createApplication(options = {}) {
   const app = express()
 
+  app.use(compression())
   app.use(express.static(path.join(__dirname, '/public')))
   app.use(logMiddleware())
   app.use(reactContextMiddleware(options))
   app.use(authMiddleware())
   app.get('/offline.html', offlineRoute)
   app.get('/*', clientRoute)
-  app.use(compression())
   app.use(errorHandler)
 
   return app
