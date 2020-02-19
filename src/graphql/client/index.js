@@ -20,15 +20,16 @@ async function persistCache(cache, state) {
   const persistor = new CachePersistor({
     cache,
     storage: window.localStorage,
+    key: 'APOLLO_CACHE',
     debug: process.env.NODE_ENV === 'development'
   })
 
-  const currentVersion = window.localStorage.getItem('__VERSION__')
+  const currentVersion = window.localStorage.getItem('APOLLO_CACHE_VERSION')
 
   if (currentVersion === SCHEMA_VERSION) await persistor.restore()
   else {
     await persistor.purge()
-    window.localStorage.setItem('__VERSION__', SCHEMA_VERSION)
+    window.localStorage.setItem('APOLLO_CACHE_VERSION', SCHEMA_VERSION)
   }
 
   if (state) cache.restore(mergeState(cache.extract(true), state))
