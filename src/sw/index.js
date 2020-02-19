@@ -23,7 +23,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 navigationPreload.enable()
 
-precacheAndRoute(['/index.html'])
+precacheAndRoute([{url: '/index.html', revision: self.__WB_REVISION}])
 precacheAndRoute(self.__WB_MANIFEST || [])
 
 /**

@@ -3,7 +3,12 @@ const CopyPlugin = require('copy-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const LoadablePlugin = require('@loadable/webpack-plugin')
 const {InjectManifest} = require('workbox-webpack-plugin')
-const {createConfig, setEnv, addPlugins} = require('webpack-blocks')
+const {
+  createConfig,
+  setEnv,
+  addPlugins,
+  defineConstants
+} = require('webpack-blocks')
 const merge = require('./blocks/merge')
 
 /**
@@ -29,6 +34,9 @@ module.exports = (config) =>
       // Generate public assets manifest
       new ManifestPlugin({fileName: 'asset-manifest.json'})
     ]),
+    defineConstants({
+      'self.__WB_REVISION': process.env.COMMIT_SHA1 || process.env.CIRCLE_SHA1
+    }),
     /**
      * Loadable components configuration
      */
