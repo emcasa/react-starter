@@ -1,3 +1,4 @@
+import './sw/register'
 import {loadableReady} from '@loadable/component'
 import {createBrowserHistory} from 'history'
 import ReactDOM from 'react-dom'

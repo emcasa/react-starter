@@ -1,6 +1,6 @@
 const path = require('path')
 const LoadablePlugin = require('@loadable/webpack-plugin')
-const {GenerateSW} = require('workbox-webpack-plugin')
+const {InjectManifest} = require('workbox-webpack-plugin')
 const {createConfig, setEnv, addPlugins} = require('webpack-blocks')
 const merge = require('./blocks/merge')
 
@@ -14,11 +14,10 @@ module.exports = (config) =>
      * Service worker configuration
      */
     addPlugins([
-      new GenerateSW({
-        additionalManifestEntries: [
-          {url: 'https://fonts.googleapis.com/css?family=Rubik&display=swap'}
-        ],
-        cleanupOutdatedCaches: true
+      new InjectManifest({
+        swSrc: './src/client/sw/index.js',
+        swDest: 'sw.js',
+        maximumFileSizeToCacheInBytes: 500e3
       })
     ]),
     /**

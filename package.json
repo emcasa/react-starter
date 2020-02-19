@@ -63,7 +63,12 @@
     "redux-saga": "1.1.1",
     "reselect": "^4.0.0",
     "styled-components": "^4.3.2",
-    "styled-system": "^5.1.2"
+    "styled-system": "^5.1.2",
+    "workbox-core": "^5.0.0",
+    "workbox-navigation-preload": "^5.0.0",
+    "workbox-precaching": "^5.0.0",
+    "workbox-routing": "^5.0.0",
+    "workbox-strategies": "^5.0.0"
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.3",
