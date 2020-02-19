@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const LoadablePlugin = require('@loadable/webpack-plugin')
 const {InjectManifest} = require('workbox-webpack-plugin')
@@ -15,11 +16,15 @@ module.exports = (config) =>
      * Service worker configuration
      */
     addPlugins([
+      // Build service worker bundle
       new InjectManifest({
         swSrc: './src/sw/index.js',
         swDest: 'sw.js',
         maximumFileSizeToCacheInBytes: 5e6
       }),
+      // Include static files in assets manifest
+      new CopyPlugin([{from: 'public', to: './', force: true}]),
+      // Generate public assets manifest
       new ManifestPlugin({fileName: 'asset-manifest.json'})
     ]),
     /**

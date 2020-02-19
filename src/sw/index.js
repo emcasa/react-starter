@@ -22,7 +22,6 @@ cleanupOutdatedCaches()
 navigationPreload.enable()
 
 precache(['offline.html'])
-precacheAndRoute(['favicon.ico'])
 precacheAndRoute(self.__WB_MANIFEST || [])
 
 /**
