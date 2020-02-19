@@ -1,6 +1,8 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import {SERVICE_WORKER} from '@/config'
+import SerializedScript from './SerializedScript'
+import DeferredStylesheet from './DeferredStylesheet'
 import registerSW from './helpers/registerSW'
 
 /**
@@ -26,22 +28,12 @@ export default function Document({children, styles, chunks, state}) {
         {head.script.toComponent()}
         {chunks.links}
         {chunks.scripts}
-        <link
-          href="https://fonts.googleapis.com/css?family=Rubik&display=swap"
-          rel="stylesheet"
-        />
         {chunks.styles}
         {styles}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__initialState = ${serialize(state)}`
-          }}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: serializeFn(registerSW, SERVICE_WORKER)
-          }}
-        />
+        <DeferredStylesheet href="https://fonts.googleapis.com/css?family=Rubik&display=swap" />
+        <SerializedScript fn={initState} args={[state]} />
+        <SerializedScript fn={registerSW} args={[SERVICE_WORKER]} />
+        <SerializedScript fn={DeferredStylesheet.load} />
       </head>
       <body>
         <div id="root" dangerouslySetInnerHTML={{__html: children}} />
@@ -50,11 +42,9 @@ export default function Document({children, styles, chunks, state}) {
   )
 }
 
-const serialize = (data) => JSON.stringify(data).replace(/</g, '\\u003c')
-
-const serializeFn = (fn, ...vars) => `
-  (${fn.toString()}).apply(null, ${serialize(vars)});
-`
+function initState(data) {
+  window.__initialState = data
+}
 
 Document.propTypes = {
   /** Content html */
