@@ -17,7 +17,7 @@ export default function createApplication(options = {}) {
   app.use(logMiddleware())
   app.use(reactContextMiddleware(options))
   app.use(authMiddleware())
-  app.get('/offline.html', offlineRoute)
+  app.get('/index.html', offlineRoute)
   app.get('/*', clientRoute)
   app.use(errorHandler)
 

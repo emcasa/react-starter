@@ -6,7 +6,9 @@ import rewritePlugin from './plugins/rewriteCacheKey'
 
 importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn/workbox/workbox-sw.js')
 
-const {precache, precacheAndRoute, cleanupOutdatedCaches} = workbox.precaching
+workbox.setConfig({debug: false})
+
+const {precacheAndRoute, cleanupOutdatedCaches} = workbox.precaching
 const {skipWaiting, clientsClaim} = workbox.core
 const navigationPreload = workbox.navigationPreload
 const {registerRoute, NavigationRoute} = workbox.routing
@@ -21,7 +23,7 @@ clientsClaim()
 cleanupOutdatedCaches()
 navigationPreload.enable()
 
-precache(['offline.html'])
+precacheAndRoute(['/index.html'])
 precacheAndRoute(self.__WB_MANIFEST || [])
 
 /**
@@ -37,7 +39,7 @@ registerRoute(
 
 // Serve cached `/offline.html` as a fallback for urls ending with /
 const offlineFallback = new NetworkFirst({
-  plugins: [rewritePlugin(/\/index\.html$/, 'offline.html')]
+  plugins: [rewritePlugin(/\/(index\.html)?$/, '/index.html')]
 })
 const offlineFallbackHandler = offlineFallback.handle.bind(offlineFallback)
 
