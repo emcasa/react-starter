@@ -99,7 +99,8 @@ jobs:
           at: ~/emcasa
       - run:
           name: Build
-          command: NODE_ENV=production yarn build
+          command: NODE_ENV=production CI=false yarn build
+      - save_cache: *cache-babel
       - run:
           name: Run mock server
           command: node_modules/.bin/emcasa-mock-server
@@ -115,7 +116,6 @@ jobs:
       - attach_workspace:
           at: ~/emcasa
       - run: NODE_ENV=production CI=false yarn build
-      - save_cache: *cache-babel
       - persist_to_workspace:
           root: .
           paths: .
