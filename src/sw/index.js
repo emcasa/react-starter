@@ -1,16 +1,16 @@
+/* global workbox importScripts */
 /**
  * Service worker entry point
  */
-import {
-  precache,
-  precacheAndRoute,
-  cleanupOutdatedCaches
-} from 'workbox-precaching'
-import {skipWaiting, clientsClaim} from 'workbox-core'
-import * as navigationPreload from 'workbox-navigation-preload'
-import {registerRoute, NavigationRoute} from 'workbox-routing'
-import {CacheFirst, NetworkFirst, NetworkOnly} from 'workbox-strategies'
 import rewritePlugin from './plugins/rewriteCacheKey'
+
+importScripts('https://cdn.jsdelivr.net/npm/workbox-cdn/workbox/workbox-sw.js')
+
+const {precache, precacheAndRoute, cleanupOutdatedCaches} = workbox.precaching
+const {skipWaiting, clientsClaim} = workbox.core
+const navigationPreload = workbox.navigationPreload
+const {registerRoute, NavigationRoute} = workbox.routing
+const {CacheFirst, NetworkFirst, NetworkOnly} = workbox.strategies
 
 /**
  * Set up

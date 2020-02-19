@@ -16,14 +16,16 @@ module.exports = (config) =>
      * Service worker configuration
      */
     addPlugins([
+      // Include static files in assets manifest
+      new CopyPlugin([
+        {from: 'public', to: './', force: true, ignore: ['**/.*']}
+      ]),
       // Build service worker bundle
       new InjectManifest({
         swSrc: './src/sw/index.js',
         swDest: 'sw.js',
         maximumFileSizeToCacheInBytes: 5e6
       }),
-      // Include static files in assets manifest
-      new CopyPlugin([{from: 'public', to: './', force: true}]),
       // Generate public assets manifest
       new ManifestPlugin({fileName: 'asset-manifest.json'})
     ]),
