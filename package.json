@@ -16,6 +16,7 @@
     "test": "NODE_ENV=test jest",
     "watch": "yarn test --watch",
     "test:lhci": "lhci autorun",
+    "mock-server": "emcasa-mock-server",
     "lint": "eslint .",
     "format": "eslint --fix .",
     "storybook": "start-storybook -p 6006"
@@ -70,6 +71,7 @@
   "devDependencies": {
     "@apollo/react-testing": "^3.1.3",
     "@babel/core": "^7.6.0",
+    "@babel/node": "^7.8.4",
     "@babel/plugin-transform-react-constant-elements": "^7.6.0",
     "@babel/plugin-transform-react-inline-elements": "^7.2.0",
     "@babel/preset-env": "^7.6.0",

@@ -103,7 +103,7 @@ jobs:
       - save_cache: *cache-babel
       - run:
           name: Run mock server
-          command: node_modules/.bin/emcasa-mock-server
+          command: yarn mock-server
       - run:
           name: Lighthouse CI
           command: yarn test:lhci
@@ -115,7 +115,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/emcasa
-      - run: NODE_ENV=production CI=false yarn build
+      - run:
+          name: Build
+          command: NODE_ENV=production CI=false yarn build
       - persist_to_workspace:
           root: .
           paths: .
