@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'path'
+import compression from 'compression'
 
 import logMiddleware from './middleware/logging'
 import reactContextMiddleware from './middleware/reactContext'
@@ -17,6 +18,7 @@ export default function createApplication(options = {}) {
   app.use(authMiddleware())
   app.get('/offline.html', offlineRoute)
   app.get('/*', clientRoute)
+  app.use(compression())
   app.use(errorHandler)
 
   return app
