@@ -165,7 +165,7 @@ workflows:
   commit:
     jobs:
       - checkout:
-          context: react-starter-staging
+          context: react-starter-test
       - test-unit:
           context: react-starter-test
           requires:
