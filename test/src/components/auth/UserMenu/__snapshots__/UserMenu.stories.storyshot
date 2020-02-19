@@ -13,6 +13,7 @@ exports[`Storyshots auth/UserMenu default 1`] = `
     test
   </p>
   <button
+    aria-label="Log out"
     className="sc-bwzfXH kAgpFR"
     fontSize="default"
     height="medium"

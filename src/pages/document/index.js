@@ -35,8 +35,12 @@ export default function Document({children, styles, chunks, state}) {
           as="script"
           href="https://cdn.jsdelivr.net/npm/workbox-cdn/workbox/workbox-sw.js"
         />
-        <link crossorigin rel="preconnect" href={API_URL} />
-        <link crossorigin rel="preconnect" href="https://fonts.gstatic.com" />
+        <link crossOrigin="true" rel="preconnect" href={API_URL} />
+        <link
+          crossOrigin="true"
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+        />
         <DeferredStylesheet href="https://fonts.googleapis.com/css?family=Rubik&display=swap" />
         <SerializedScript fn={initState} args={[state]} />
         <SerializedScript fn={registerSW} args={[SERVICE_WORKER]} />
