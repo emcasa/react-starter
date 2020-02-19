@@ -25,6 +25,6 @@ SerializedScript.defaultProps = {
 }
 
 SerializedScript.propTypes = {
-  fn: PropTypes.function.isRequired,
+  fn: PropTypes.func.isRequired,
   args: PropTypes.array.isRequired
 }

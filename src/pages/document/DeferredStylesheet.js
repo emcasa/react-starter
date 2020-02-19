@@ -1,4 +1,5 @@
 import {Fragment} from 'react'
+import PropTypes from 'prop-types'
 
 /**
  * Renders a non-blocking stylesheet link
@@ -12,6 +13,10 @@ export default function DeferredStylesheet(props) {
       </noscript>
     </Fragment>
   )
+}
+
+DeferredStylesheet.propTypes = {
+  href: PropTypes.string.isRequired
 }
 
 DeferredStylesheet.load = function loadStyles() {
