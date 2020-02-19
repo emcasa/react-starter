@@ -15,6 +15,7 @@ export default function Document({children, styles, chunks, state}) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
         {head.base.toComponent()}
         {head.title.toComponent()}
