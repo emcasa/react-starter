@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 .DS_Store
 
+.lighthouseci
 coverage
 node_modules
 build
