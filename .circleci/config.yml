@@ -8,6 +8,10 @@ environments:
     working_directory: ~/emcasa
     docker:
       - image: circleci/node:12
+  - &browser
+    working_directory: ~/emcasa
+    docker:
+      - image: circleci/node:12-browsers
   - &awsebcli
     working_directory: ~/emcasa
     docker:
@@ -69,7 +73,7 @@ jobs:
           root: .
           paths: .
   # Run tests
-  test:
+  test:unit:
     <<: *nodejs
     environment:
       JEST_JUNIT_OUTPUT_DIR: "reports/jest"
@@ -78,12 +82,32 @@ jobs:
       - attach_workspace:
           at: ~/emcasa
       - run: mkdir -p reports
-      - run: yarn lint --format junit --output-file reports/eslint/results.xml
-      - run: yarn test --ci --verbose --coverage
+      - run:
+          name: Eslint
+          command: yarn lint --format junit --output-file reports/eslint/results.xml
+      - run:
+          name: Jest
+          command: yarn test --ci --verbose --coverage
       - store_test_results:
           path: reports
       - store_artifacts:
           path: coverage
+  test:lhci:
+    <<: *browser
+    steps:
+      - attach_workspace:
+          at: ~/emcasa
+      - run:
+          name: Build
+          command: NODE_ENV=production yarn build
+      - run:
+          name: Run mock server
+          command: node_modules/.bin/emcasa-mock-server
+      - run:
+          name: Lighthouse CI
+          command: yarn test:lhci
+      - store_artifacts:
+          path: .lighthouseci
   # Build production bundle before deploying
   build: &build-job
     <<: *nodejs
@@ -139,7 +163,10 @@ workflows:
     jobs:
       - checkout:
           context: react-starter-staging
-      - test:
+      - test:unit:
+          requires:
+            - checkout
+      - test:lhci:
           requires:
             - checkout
 #      # Deploy workflow
@@ -151,12 +178,14 @@ workflows:
 #          context: react-starter-staging
 #          requires:
 #            - deploy-staging-approval
-#            - test
+#            - test:unit
+#            - test:lhci
 #      - build-production:
 #          context: react-starter-production
 #          requires:
 #            - deploy-production-approval
-#            - test
+#            - test:unit
+#            - test:lhci
 #      - ecr-deploy-staging:
 #          context: react-starter-staging
 #          requires:
