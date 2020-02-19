@@ -1,54 +1,14 @@
 import {ApolloClient} from 'apollo-client'
-import {CachePersistor} from 'apollo-cache-persist'
-import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory'
 import {getToken} from '@/lib/jwt'
-import initialState from '../resolvers/initialState'
 import resolvers from '../resolvers'
+import initialState from '../resolvers/initialState'
 import createLink from './link'
+import createCache from './cache'
 
 let apolloClient = null
 
-// Bump this whenever client-side schema or fields on a query changes
-const SCHEMA_VERSION = '1'
-
-async function persistCache(cache, state) {
-  if (!process.browser) {
-    cache.writeData({data: initialState})
-    return
-  }
-
-  const persistor = new CachePersistor({
-    cache,
-    storage: window.localStorage,
-    key: 'APOLLO_CACHE',
-    debug: process.env.NODE_ENV === 'development'
-  })
-
-  const currentVersion = window.localStorage.getItem('APOLLO_CACHE_VERSION')
-
-  if (currentVersion === SCHEMA_VERSION) await persistor.restore()
-  else {
-    await persistor.purge()
-    window.localStorage.setItem('APOLLO_CACHE_VERSION', SCHEMA_VERSION)
-  }
-
-  if (state) cache.restore(mergeState(cache.extract(true), state))
-  else cache.writeData({data: initialState})
-}
-
-const mergeState = (a = {}, b = {}) => ({
-  ...a,
-  ...b,
-  $ROOT_QUERY: Object.assign({}, a.$ROOT_QUERY, b.$ROOT_QUERY),
-  ROOT_QUERY: Object.assign({}, a.ROOT_QUERY, b.ROOT_QUERY)
-})
-
 function createApolloClient(options, state) {
-  const cache = new InMemoryCache({
-    dataIdFromObject: (data) =>
-      data.uuid ? data.uuid : defaultDataIdFromObject(data)
-  })
-  persistCache(cache, state)
+  const cache = createCache(state)
   const client = new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser,
