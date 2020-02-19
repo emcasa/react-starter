@@ -1,8 +1,12 @@
+/**
+ * Express server entry point
+ */
 import http from 'http'
+import createApp from './server'
 
 require('dotenv').config()
 
-let app = require('./server').default()
+let app = createApp()
 
 const server = http.createServer(app)
 
