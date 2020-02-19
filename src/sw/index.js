@@ -1,3 +1,6 @@
+/**
+ * Service worker entry point
+ */
 import {
   precache,
   precacheAndRoute,
@@ -18,13 +21,6 @@ navigationPreload.enable()
 precache(['offline.html'])
 precacheAndRoute(['favicon.ico'])
 precacheAndRoute(self.__WB_MANIFEST || [])
-
-registerRoute(
-  /^https:\/\/fonts\.(googleapis|gstatic)\.com/,
-  new CacheFirst({
-    cacheName: 'google-fonts'
-  })
-)
 
 registerRoute(
   /^https:\/\/fonts\.(googleapis|gstatic)\.com/,

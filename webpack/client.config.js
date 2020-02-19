@@ -15,7 +15,7 @@ module.exports = (config) =>
      */
     addPlugins([
       new InjectManifest({
-        swSrc: './src/client/sw/index.js',
+        swSrc: './src/sw/index.js',
         swDest: 'sw.js',
         maximumFileSizeToCacheInBytes: 5e6
       })

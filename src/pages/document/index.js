@@ -1,7 +1,7 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
-
-const serialize = (data) => JSON.stringify(data).replace(/</g, '\\u003c')
+import {SERVICE_WORKER} from '@/config'
+import registerSW from './helpers/registerSW'
 
 /**
  * Renders document markup on the server-side.
@@ -37,6 +37,11 @@ export default function Document({children, styles, chunks, state}) {
             __html: `window.__initialState = ${serialize(state)}`
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: serializeFn(registerSW, SERVICE_WORKER)
+          }}
+        />
       </head>
       <body>
         <div id="root" dangerouslySetInnerHTML={{__html: children}} />
@@ -44,6 +49,12 @@ export default function Document({children, styles, chunks, state}) {
     </html>
   )
 }
+
+const serialize = (data) => JSON.stringify(data).replace(/</g, '\\u003c')
+
+const serializeFn = (fn, ...vars) => `
+  (${fn.toString()}).apply(null, ${serialize(vars)});
+`
 
 Document.propTypes = {
   /** Content html */
