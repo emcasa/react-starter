@@ -116,6 +116,7 @@
     "require-context.macro": "^1.2.2",
     "supertest": "^4.0.2",
     "webpack-blocks": "^2.0.1",
+    "webpack-manifest-plugin": "^2.2.0",
     "workbox-webpack-plugin": "^5.0.0"
   }
 }

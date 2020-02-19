@@ -1,4 +1,5 @@
 const path = require('path')
+const ManifestPlugin = require('webpack-manifest-plugin')
 const LoadablePlugin = require('@loadable/webpack-plugin')
 const {InjectManifest} = require('workbox-webpack-plugin')
 const {createConfig, setEnv, addPlugins} = require('webpack-blocks')
@@ -18,7 +19,8 @@ module.exports = (config) =>
         swSrc: './src/sw/index.js',
         swDest: 'sw.js',
         maximumFileSizeToCacheInBytes: 5e6
-      })
+      }),
+      new ManifestPlugin({fileName: 'asset-manifest.json'})
     ]),
     /**
      * Loadable components configuration
