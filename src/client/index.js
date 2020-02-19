@@ -6,6 +6,8 @@ import initApollo from '@/graphql/client'
 import createStore from '@/redux/store'
 import App from './App'
 
+window.__initialState = window.__initialState || {}
+
 const root = document.getElementById('root')
 const history = createBrowserHistory({})
 let apolloClient = initApollo({}, window.__initialState.apollo)

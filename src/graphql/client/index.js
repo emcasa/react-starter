@@ -8,18 +8,14 @@ import createLink from './link'
 
 let apolloClient = null
 
+// Bump this whenever client-side schema or fields on a query changes
 const SCHEMA_VERSION = '1'
 
-const def = (options) => ({
-  getToken,
-  ...options
-})
-
 async function persistCache(cache, state) {
-  if (state) cache.restore(state)
-  else cache.writeData({data: initialState})
-
-  if (!process.browser) return
+  if (!process.browser) {
+    cache.writeData({data: initialState})
+    return
+  }
 
   const persistor = new CachePersistor({
     cache,
@@ -34,7 +30,17 @@ async function persistCache(cache, state) {
     await persistor.purge()
     window.localStorage.setItem('__VERSION__', SCHEMA_VERSION)
   }
+
+  if (state) cache.restore(mergeState(cache.extract(true), state))
+  else cache.writeData({data: initialState})
 }
+
+const mergeState = (a = {}, b = {}) => ({
+  ...a,
+  ...b,
+  $ROOT_QUERY: Object.assign({}, a.$ROOT_QUERY, b.$ROOT_QUERY),
+  ROOT_QUERY: Object.assign({}, a.ROOT_QUERY, b.ROOT_QUERY)
+})
 
 function createApolloClient(options, state) {
   const cache = new InMemoryCache({
@@ -52,6 +58,11 @@ function createApolloClient(options, state) {
   client.onResetStore(() => cache.writeData({data: initialState}))
   return client
 }
+
+const def = (options) => ({
+  getToken,
+  ...options
+})
 
 export default function initApollo(options, state) {
   // Make sure to create a new client for every server-side request so that data
