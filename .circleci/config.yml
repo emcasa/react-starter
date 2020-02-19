@@ -104,6 +104,7 @@ jobs:
       - run:
           name: Run mock server
           command: yarn mock-server
+          background: true
       - run:
           name: Lighthouse CI
           command: yarn test:lhci
