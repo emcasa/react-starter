@@ -73,7 +73,7 @@ jobs:
           root: .
           paths: .
   # Run tests
-  test:unit:
+  test-unit:
     <<: *nodejs
     environment:
       JEST_JUNIT_OUTPUT_DIR: "reports/jest"
@@ -92,7 +92,7 @@ jobs:
           path: reports
       - store_artifacts:
           path: coverage
-  test:lhci:
+  test-lhci:
     <<: *browser
     steps:
       - attach_workspace:
@@ -163,10 +163,10 @@ workflows:
     jobs:
       - checkout:
           context: react-starter-staging
-      - test:unit:
+      - test-unit:
           requires:
             - checkout
-      - test:lhci:
+      - test-lhci:
           requires:
             - checkout
 #      # Deploy workflow
@@ -178,14 +178,14 @@ workflows:
 #          context: react-starter-staging
 #          requires:
 #            - deploy-staging-approval
-#            - test:unit
-#            - test:lhci
+#            - test-unit
+#            - test-lhci
 #      - build-production:
 #          context: react-starter-production
 #          requires:
 #            - deploy-production-approval
-#            - test:unit
-#            - test:lhci
+#            - test-unit
+#            - test-lhci
 #      - ecr-deploy-staging:
 #          context: react-starter-staging
 #          requires:
