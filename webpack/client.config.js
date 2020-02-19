@@ -17,7 +17,7 @@ module.exports = (config) =>
       new InjectManifest({
         swSrc: './src/client/sw/index.js',
         swDest: 'sw.js',
-        maximumFileSizeToCacheInBytes: 500e3
+        maximumFileSizeToCacheInBytes: 5e6
       })
     ]),
     /**

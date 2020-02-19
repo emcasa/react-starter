@@ -10,5 +10,3 @@ export const APOLLO_ENGINE_URL =
 export const SERVICE_WORKER = process.env.SERVICE_WORKER
   ? process.env.SERVICE_WORKER == 'true'
   : NODE_ENV === 'production'
-
-console.log('SERVICE_WORKER', SERVICE_WORKER)
