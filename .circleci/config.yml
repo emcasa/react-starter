@@ -167,9 +167,11 @@ workflows:
       - checkout:
           context: react-starter-staging
       - test-unit:
+          context: react-starter-test
           requires:
             - checkout
       - test-lhci:
+          context: react-starter-test
           requires:
             - checkout
 #      # Deploy workflow
