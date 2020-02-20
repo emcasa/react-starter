@@ -9,7 +9,7 @@ export default function UserMenu({color, user, onLogout}) {
       <Text fontSize={18} color={color}>
         Hello, {user.name}
       </Text>
-      <Button link mrl={2} onClick={onLogout}>
+      <Button aria-label="Log out" link mrl={2} onClick={onLogout}>
         <Icon name="sign-out-alt" color={color} />
       </Button>
     </Row>

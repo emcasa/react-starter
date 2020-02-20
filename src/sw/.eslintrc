@@ -1,0 +1,10 @@
+{
+  "extends": "../../.eslintrc.js",
+  "env": {
+    "node": true,
+    "worker": true
+  },
+  "globals": {
+    "workbox": true
+  }
+}

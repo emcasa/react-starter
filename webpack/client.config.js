@@ -1,6 +1,14 @@
 const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
 const LoadablePlugin = require('@loadable/webpack-plugin')
-const {createConfig, setEnv, addPlugins} = require('webpack-blocks')
+const {InjectManifest} = require('workbox-webpack-plugin')
+const {
+  createConfig,
+  setEnv,
+  addPlugins,
+  defineConstants
+} = require('webpack-blocks')
 const merge = require('./blocks/merge')
 
 /**
@@ -9,6 +17,29 @@ const merge = require('./blocks/merge')
 module.exports = (config) =>
   createConfig([
     merge(config),
+    /**
+     * Service worker configuration
+     */
+    addPlugins([
+      // Include static files in assets manifest
+      new CopyPlugin([
+        {from: 'public', to: './', force: true, ignore: ['**/.*']}
+      ]),
+      // Build service worker bundle
+      new InjectManifest({
+        swSrc: './src/sw/index.js',
+        swDest: 'sw.js',
+        maximumFileSizeToCacheInBytes: 5e6
+      }),
+      // Generate public assets manifest
+      new ManifestPlugin({fileName: 'asset-manifest.json'})
+    ]),
+    defineConstants({
+      'self.__WB_REVISION': process.env.COMMIT_SHA1 || process.env.CIRCLE_SHA1,
+      'self.__WB_DEBUG': process.env.DEBUG_SW
+        ? process.env.DEBUG_SW == 'true'
+        : process.env.NODE_ENV === 'development'
+    }),
     /**
      * Loadable components configuration
      */
@@ -34,8 +65,10 @@ module.exports = (config) =>
      * Set default values for the output bundle's process.env here
      */
     setEnv({
+      SERVICE_WORKER: null,
       NODE_ENV: 'development',
       API_URL: null,
-      APOLLO_ENGINE_URL: null
+      APOLLO_ENGINE_URL: null,
+      GRAPHQL_SCHEMA_VERSION: ''
     })
   ])

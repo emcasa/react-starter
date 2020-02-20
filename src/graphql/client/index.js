@@ -1,24 +1,14 @@
 import {ApolloClient} from 'apollo-client'
-import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory'
 import {getToken} from '@/lib/jwt'
-import initialState from '../resolvers/initialState'
 import resolvers from '../resolvers'
+import initialState from '../resolvers/initialState'
 import createLink from './link'
+import createCache from './cache'
 
 let apolloClient = null
 
-const def = (options) => ({
-  getToken,
-  ...options
-})
-
 function createApolloClient(options, state) {
-  const cache = new InMemoryCache({
-    dataIdFromObject: (data) =>
-      data.uuid ? data.uuid : defaultDataIdFromObject(data)
-  })
-  if (state) cache.restore(state)
-  else cache.writeData({data: initialState})
+  const cache = createCache(state)
   const client = new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser,
@@ -29,6 +19,11 @@ function createApolloClient(options, state) {
   client.onResetStore(() => cache.writeData({data: initialState}))
   return client
 }
+
+const def = (options) => ({
+  getToken,
+  ...options
+})
 
 export default function initApollo(options, state) {
   // Make sure to create a new client for every server-side request so that data

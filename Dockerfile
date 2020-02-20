@@ -32,6 +32,9 @@ ENV API_URL=$API_URL
 ARG APOLLO_ENGINE_URL
 ENV APOLLO_ENGINE_URL=$APOLLO_ENGINE_URL
 
+ARG SERVICE_WORKER
+ENV SERVICE_WORKER=$SERVICE_WORKER
+
 EXPOSE 3000/tcp
 
 ################################################################################

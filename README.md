@@ -29,7 +29,19 @@ Run the `start` command to start the dev server.
 yarn start
 ```
 
-## Deploying
+## CI Workflow
+
+To configure your project's CircleCI workflow do the following:
+
+In [.circleci/config.yml](.circleci/config.yml):
+- Edit `configurations` on [L16](.circleci/config.yml#L16) according to your project
+- Replace all instances of `react-starter-test`, `react-starter-staging` and
+  `react-starter-production` with your project's respective contexts
+
+To display Lighthouse results on PRs install the `Lighthouse app` on your github
+project and copy your `LHCI_GITHUB_APP_TOKEN` to the `-test` context.
+
+### Deploying
 
 This project is set up to deploy on ECR and Elastic Beanstalk using CircleCI.
 To enable this workflow do the following:
@@ -38,11 +50,7 @@ In [.elasticbeanstalk/config.yml](.elasticbeanstalk/config.yml#L2), configure yo
 For advanced customization you may use `.ebextensions/`
 ([See the docs](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html)).
 
-In [.circleci/config.yml](.circleci/config.yml):
-- Edit `configurations` on [L16](.circleci/config.yml#L16) according to your project,
-- Replace all instances of `react-starter-staging` and `react-starter-production`
-  with your project's respective contexts and
-- Uncomment all jobs from [L136](.circleci/config.yml#L136)
+Then, uncomment all jobs from [L136](.circleci/config.yml#L136) of `.circleci/config.yml`.
 
 CircleCI needs these variables to deploy on AWS:
 

@@ -1,7 +1,9 @@
 import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
-
-const serialize = (data) => JSON.stringify(data).replace(/</g, '\\u003c')
+import {SERVICE_WORKER, API_URL} from '@/config'
+import SerializedScript from './SerializedScript'
+import DeferredStylesheet from './DeferredStylesheet'
+import registerSW from './helpers/registerSW'
 
 /**
  * Renders document markup on the server-side.
@@ -15,7 +17,10 @@ export default function Document({children, styles, chunks, state}) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#ff2b7f" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         {head.base.toComponent()}
         {head.title.toComponent()}
         {head.meta.toComponent()}
@@ -23,23 +28,28 @@ export default function Document({children, styles, chunks, state}) {
         {head.script.toComponent()}
         {chunks.links}
         {chunks.scripts}
-        <link
-          href="https://fonts.googleapis.com/css?family=Rubik&display=swap"
-          rel="stylesheet"
-        />
         {chunks.styles}
         {styles}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__initialState = ${serialize(state)}`
-          }}
+        <link crossOrigin="true" rel="preconnect" href={API_URL} />
+        <link
+          crossOrigin="true"
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
         />
+        <DeferredStylesheet href="https://fonts.googleapis.com/css?family=Rubik&display=swap" />
+        <SerializedScript fn={initState} args={[state]} />
+        <SerializedScript fn={registerSW} args={[SERVICE_WORKER]} />
+        <SerializedScript fn={DeferredStylesheet.load} />
       </head>
       <body>
         <div id="root" dangerouslySetInnerHTML={{__html: children}} />
       </body>
     </html>
   )
+}
+
+function initState(data) {
+  window.__initialState = data
 }
 
 Document.propTypes = {

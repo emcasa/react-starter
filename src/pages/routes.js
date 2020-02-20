@@ -4,7 +4,7 @@ import ErrorPage from './error'
 import HomePage from './home/lazy'
 import LoginPage from './login/lazy'
 
-const NotFound = () => <ErrorPage emit statusCode={404} message="Not found" />
+const NotFound = () => <ErrorPage emit code={404} message="Not found" />
 
 export default function Router() {
   return (

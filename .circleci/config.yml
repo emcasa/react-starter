@@ -8,6 +8,10 @@ environments:
     working_directory: ~/emcasa
     docker:
       - image: circleci/node:12
+  - &browser
+    working_directory: ~/emcasa
+    docker:
+      - image: circleci/node:12-browsers
   - &awsebcli
     working_directory: ~/emcasa
     docker:
@@ -47,12 +51,19 @@ aliases:
         --build-arg SSR=${SSR}
         --build-arg API_URL=${API_URL}
         --build-arg APOLLO_ENGINE_URL=${APOLLO_ENGINE_URL}
+        --build-arg SERVICE_WORKER=${SERVICE_WORKER}
   - &configure-dockerrun
       name: Configure Dockerrun.aws.json
       command: >
-        IMAGE="${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO}:latest";
+        IMAGE="${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO}:latest"
         CONFIG=$(jq ".Image = {Update: true, Name: \"${IMAGE}\"}" Dockerrun.aws.json)
         echo $CONFIG > Dockerrun.aws.json
+  - &gen-graphql-schema-version
+      name: Generate GraphQL schema version
+      command: >
+        CHECKSUM=$(md5 -r src/graphql/queries/**/* src/graphql/resolvers/schema.gql | md5)
+        echo "export REPO=${CHECKSUM}" >> $BASH_ENV
+
 
 jobs:
   # Checkout code and install dependencies
@@ -69,7 +80,7 @@ jobs:
           root: .
           paths: .
   # Run tests
-  test:
+  test-unit:
     <<: *nodejs
     environment:
       JEST_JUNIT_OUTPUT_DIR: "reports/jest"
@@ -78,20 +89,44 @@ jobs:
       - attach_workspace:
           at: ~/emcasa
       - run: mkdir -p reports
-      - run: yarn lint --format junit --output-file reports/eslint/results.xml
-      - run: yarn test --ci --verbose --coverage
+      - run:
+          name: Eslint
+          command: yarn lint --format junit --output-file reports/eslint/results.xml
+      - run:
+          name: Jest
+          command: yarn test --ci --verbose --coverage
       - store_test_results:
           path: reports
       - store_artifacts:
           path: coverage
+  test-lhci:
+    <<: *browser
+    steps:
+      - attach_workspace:
+          at: ~/emcasa
+      - run:
+          name: Build
+          command: NODE_ENV=production CI=false yarn build
+      - save_cache: *cache-babel
+      - run:
+          name: Run mock server
+          command: yarn mock-server
+          background: true
+      - run:
+          name: Lighthouse CI
+          command: yarn test:lhci
+      - store_artifacts:
+          path: .lighthouseci
   # Build production bundle before deploying
   build: &build-job
     <<: *nodejs
     steps:
       - attach_workspace:
           at: ~/emcasa
-      - run: NODE_ENV=production CI=false yarn build
-      - save_cache: *cache-babel
+      - run: *gen-graphql-schema-version
+      - run:
+          name: Build
+          command: NODE_ENV=production CI=false yarn build
       - persist_to_workspace:
           root: .
           paths: .
@@ -138,8 +173,13 @@ workflows:
   commit:
     jobs:
       - checkout:
-          context: react-starter-staging
-      - test:
+          context: react-starter-test
+      - test-unit:
+          context: react-starter-test
+          requires:
+            - checkout
+      - test-lhci:
+          context: react-starter-test
           requires:
             - checkout
 #      # Deploy workflow
@@ -151,12 +191,14 @@ workflows:
 #          context: react-starter-staging
 #          requires:
 #            - deploy-staging-approval
-#            - test
+#            - test-unit
+#            - test-lhci
 #      - build-production:
 #          context: react-starter-production
 #          requires:
 #            - deploy-production-approval
-#            - test
+#            - test-unit
+#            - test-lhci
 #      - ecr-deploy-staging:
 #          context: react-starter-staging
 #          requires:
