@@ -7,6 +7,8 @@ export const API_URL = process.env.API_URL || 'http://localhost:4000'
 export const APOLLO_ENGINE_URL =
   process.env.APOLLO_ENGINE_URL || `${API_URL}/graphql_api`
 
+export const GRAPHQL_SCHEMA_VERSION = process.env.GRAPHQL_SCHEMA_VERSION || ''
+
 export const SERVICE_WORKER = process.env.SERVICE_WORKER
   ? process.env.SERVICE_WORKER == 'true'
   : NODE_ENV === 'production'

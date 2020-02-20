@@ -68,6 +68,7 @@ module.exports = (config) =>
       SERVICE_WORKER: null,
       NODE_ENV: 'development',
       API_URL: null,
-      APOLLO_ENGINE_URL: null
+      APOLLO_ENGINE_URL: null,
+      GRAPHQL_SCHEMA_VERSION: ''
     })
   ])

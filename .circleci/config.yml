@@ -51,12 +51,19 @@ aliases:
         --build-arg SSR=${SSR}
         --build-arg API_URL=${API_URL}
         --build-arg APOLLO_ENGINE_URL=${APOLLO_ENGINE_URL}
+        --build-arg SERVICE_WORKER=${SERVICE_WORKER}
   - &configure-dockerrun
       name: Configure Dockerrun.aws.json
       command: >
-        IMAGE="${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO}:latest";
+        IMAGE="${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO}:latest"
         CONFIG=$(jq ".Image = {Update: true, Name: \"${IMAGE}\"}" Dockerrun.aws.json)
         echo $CONFIG > Dockerrun.aws.json
+  - &gen-graphql-schema-version
+      name: Generate GraphQL schema version
+      command: >
+        CHECKSUM=$(md5 -r src/graphql/queries/**/* src/graphql/resolvers/schema.gql | md5)
+        echo "export REPO=${CHECKSUM}" >> $BASH_ENV
+
 
 jobs:
   # Checkout code and install dependencies
@@ -116,6 +123,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/emcasa
+      - run: *gen-graphql-schema-version
       - run:
           name: Build
           command: NODE_ENV=production CI=false yarn build
