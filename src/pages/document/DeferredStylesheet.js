@@ -9,7 +9,7 @@ export default function DeferredStylesheet(props) {
     <Fragment>
       <link {...props} data-deferred-style rel="preload" as="style" />
       <noscript>
-        <link {...props} />
+        <link {...props} rel="stylesheet" />
       </noscript>
     </Fragment>
   )
