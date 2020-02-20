@@ -35,7 +35,10 @@ module.exports = (config) =>
       new ManifestPlugin({fileName: 'asset-manifest.json'})
     ]),
     defineConstants({
-      'self.__WB_REVISION': process.env.COMMIT_SHA1 || process.env.CIRCLE_SHA1
+      'self.__WB_REVISION': process.env.COMMIT_SHA1 || process.env.CIRCLE_SHA1,
+      'self.__WB_DEBUG': process.env.DEBUG_SW
+        ? process.env.DEBUG_SW == 'true'
+        : process.env.NODE_ENV === 'development'
     }),
     /**
      * Loadable components configuration

@@ -30,11 +30,6 @@ export default function Document({children, styles, chunks, state}) {
         {chunks.scripts}
         {chunks.styles}
         {styles}
-        <link
-          rel="preload"
-          as="script"
-          href="https://cdn.jsdelivr.net/npm/workbox-cdn/workbox/workbox-sw.js"
-        />
         <link crossOrigin="true" rel="preconnect" href={API_URL} />
         <link
           crossOrigin="true"

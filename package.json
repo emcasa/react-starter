@@ -6,6 +6,9 @@
     "node": ">=12.0",
     "yarn": ">=1.16"
   },
+  "sideEffects": [
+    "./src/sw/**/*.js"
+  ],
   "scripts": {
     "start": "razzle start",
     "start:prod": "NODE_ENV=production node build/server.js",
